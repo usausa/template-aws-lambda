@@ -1,38 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+namespace Template.Functions.Tests;
+
+using Amazon.Lambda.TestUtilities;
 
 using Xunit;
-using Amazon.Lambda.Core;
-using Amazon.Lambda.TestUtilities;
-using Amazon.Lambda.APIGatewayEvents;
 
-using Template.Functions;
-
-namespace Template.Functions.Tests
+public class FunctionTest
 {
-    public class FunctionTest
+    [Fact]
+    public void TestGetMethod()
     {
-        public FunctionTest()
-        {
-        }
+        var functions = new Functions();
+        var request = new GetRequest { Name = "Test" };
+        var context = new TestLambdaContext();
 
-        [Fact]
-        public void TestGetMethod()
-        {
-            TestLambdaContext context;
-            APIGatewayProxyRequest request;
-            APIGatewayProxyResponse response;
+        var response = functions.Get(request, context);
 
-            Functions functions = new Functions();
-
-
-            request = new APIGatewayProxyRequest();
-            context = new TestLambdaContext();
-            response = functions.Get(request, context);
-            Assert.Equal(200, response.StatusCode);
-            Assert.Equal("Hello AWS Serverless", response.Body);
-        }
+        Assert.NotNull(response);
+        Assert.NotEmpty(response!.Values);
     }
 }
