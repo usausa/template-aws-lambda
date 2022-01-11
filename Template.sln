@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Functions", "Template.Functions\Template.Functions.csproj", "{32C844E6-57C4-4DB2-A7D3-319907B198D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Lambda", "Template.Lambda\Template.Lambda.csproj", "{32C844E6-57C4-4DB2-A7D3-319907B198D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Functions.Tests", "Template.Functions.Tests\Template.Functions.Tests.csproj", "{86C325AE-5AC5-428D-890B-2B810F8C3F1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Lambda.Tests", "Template.Lambda.Tests\Template.Lambda.Tests.csproj", "{86C325AE-5AC5-428D-890B-2B810F8C3F1E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Core", "Template.Core\Template.Core.csproj", "{52B2484D-70DF-446A-BAB7-F9524B33F477}"
 EndProject
