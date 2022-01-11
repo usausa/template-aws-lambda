@@ -19,9 +19,8 @@ public class ApiFunctionTest
         {
             Body = JsonSerializer.Serialize(new ApiGetInput { Name = "Test" })
         };
-        var context = new TestLambdaContext();
 
-        var response = functions.Get(request, context);
+        var response = functions.Get(request);
 
         Assert.Equal(200, response.StatusCode);
         Assert.NotEmpty(response.Body);
