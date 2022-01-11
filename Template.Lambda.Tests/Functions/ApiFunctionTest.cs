@@ -5,6 +5,8 @@ using System.Text.Json;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.TestUtilities;
 
+using Template.Lambda.Parameters;
+
 using Xunit;
 
 public class ApiFunctionTest
