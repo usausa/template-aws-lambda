@@ -21,7 +21,6 @@ public class ApiFunction
         this.logger = logger;
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Function")]
     public APIGatewayProxyResponse Get(APIGatewayProxyRequest request)
     {
         logger.LogInformation("Get request. path=[{Path}]", request.Path);
@@ -39,7 +38,6 @@ public class ApiFunction
         });
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Function")]
     public APIGatewayProxyResponse Post(APIGatewayProxyRequest request)
     {
         logger.LogInformation("Post request. path=[{Path}]", request.Path);
