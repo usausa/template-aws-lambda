@@ -44,14 +44,24 @@ public sealed class LambdaLogger : ILogger
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string LogLevelFormat(LogLevel level)
     {
+        //return level switch
+        //{
+        //    LogLevel.Trace => "TRACE",
+        //    LogLevel.Debug => "DEBUG",
+        //    LogLevel.Information => "INFO",
+        //    LogLevel.Warning => "WARN",
+        //    LogLevel.Error => "ERROR",
+        //    LogLevel.Critical => "CRITICAL",
+        //    _ => "NONE"
+        //};
         return level switch
         {
-            LogLevel.Trace => "TRACE",
-            LogLevel.Debug => "DEBUG",
-            LogLevel.Information => "INFO",
-            LogLevel.Warning => "WARN",
-            LogLevel.Error => "ERROR",
-            LogLevel.Critical => "CRITICAL",
+            LogLevel.Trace => "🟦 TRACE",
+            LogLevel.Debug => "🟪 DEBUG",
+            LogLevel.Information => "🟩 INFO",
+            LogLevel.Warning => "🟧 WARN",
+            LogLevel.Error => "🟥 ERROR",
+            LogLevel.Critical => "⬛ CRITICAL",
             _ => "NONE"
         };
     }
