@@ -56,12 +56,12 @@ public sealed class LambdaLogger : ILogger
         //};
         return level switch
         {
-            LogLevel.Trace => "🟦 TRACE",
-            LogLevel.Debug => "🟪 DEBUG",
-            LogLevel.Information => "🟩 INFO",
-            LogLevel.Warning => "🟧 WARN",
-            LogLevel.Error => "🟥 ERROR",
-            LogLevel.Critical => "⬛ CRITICAL",
+            LogLevel.Trace => "🟦 [TRACE]",
+            LogLevel.Debug => "🟪 [DEBUG]",
+            LogLevel.Information => "🟩 [INFO]",
+            LogLevel.Warning => "🟧 [WARN]",
+            LogLevel.Error => "🟥 [ERROR[",
+            LogLevel.Critical => "⬛ [CRITICAL]",
             _ => "NONE"
         };
     }
