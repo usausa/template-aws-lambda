@@ -3,10 +3,10 @@
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application.",
   "Resources": {
-    "ApiGet": {
+    "ApiTime": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "Template.Lambda::Template.Lambda.Functions.ApiFunction::Get",
+        "Handler": "Template.Lambda::Template.Lambda.Functions.ApiFunction::Time",
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
         "MemorySize": 128,
@@ -19,17 +19,17 @@
           "RootGet": {
             "Type": "Api",
             "Properties": {
-              "Path": "/api/get",
+              "Path": "/api/time",
               "Method": "GET"
             }
           }
         }
       }
     },
-    "ApiPost": {
+    "ApiBind": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "Template.Lambda::Template.Lambda.Functions.ApiFunction::Post",
+        "Handler": "Template.Lambda::Template.Lambda.Functions.ApiFunction::Bind",
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
         "MemorySize": 128,
@@ -42,7 +42,7 @@
           "RootGet": {
             "Type": "Api",
             "Properties": {
-              "Path": "/api/post",
+              "Path": "/api/bind",
               "Method": "POST"
             }
           }

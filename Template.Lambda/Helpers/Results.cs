@@ -21,7 +21,7 @@ public static class Results
 
     public static APIGatewayProxyResponse Ok() => new()
     {
-        StatusCode = (int)HttpStatusCode.OK,
+        StatusCode = (int)HttpStatusCode.OK
     };
 
     public static APIGatewayProxyResponse BadRequest() => new()

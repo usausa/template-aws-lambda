@@ -2,7 +2,7 @@ namespace Template.Lambda.Parameters;
 
 using System.Diagnostics.CodeAnalysis;
 
-public class ApiGetOutput
+public class ApiBindOutput
 {
     [AllowNull]
     public string[] Values { get; set; }

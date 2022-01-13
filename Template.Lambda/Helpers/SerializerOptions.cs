@@ -16,7 +16,7 @@ public static class SerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-            IgnoreNullValues = true,
+            IgnoreNullValues = true
         };
         Default.Converters.Add(new DateTimeConverter());
     }

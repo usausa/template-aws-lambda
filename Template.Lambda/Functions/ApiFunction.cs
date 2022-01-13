@@ -21,27 +21,27 @@ public class ApiFunction
         this.logger = logger;
     }
 
-    public APIGatewayProxyResponse Get(APIGatewayProxyRequest request)
+    public APIGatewayProxyResponse Time(APIGatewayProxyRequest request)
     {
-        logger.LogInformation("Get request. path=[{Path}]", request.Path);
+        logger.LogInformation("Time request. path=[{Path}]", request.Path);
 
-        var input = request.Bind<ApiGetInput>();
+        return Results.Ok(new ApiTimeOutput { DateTime = DateTime.Now });
+    }
+
+    public APIGatewayProxyResponse Bind(APIGatewayProxyRequest request)
+    {
+        logger.LogInformation("Bind request. path=[{Path}]", request.Path);
+
+        var input = request.Bind<ApiBindInput>();
 
         if (String.IsNullOrEmpty(input.Name))
         {
             return Results.BadRequest();
         }
 
-        return Results.Ok(new ApiGetOutput
+        return Results.Ok(new ApiBindOutput
         {
             Values = Enumerable.Range(1, 5).Select(x => $"{input.Name}-{x}").ToArray()
         });
-    }
-
-    public APIGatewayProxyResponse Post(APIGatewayProxyRequest request)
-    {
-        logger.LogInformation("Post request. path=[{Path}]", request.Path);
-
-        return Results.Ok();
     }
 }
