@@ -7,6 +7,7 @@
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "Template.Lambda::Template.Lambda.Functions.ApiFunction::Time",
+        "Architectures": [ "arm64" ],
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
         "MemorySize": 128,
@@ -30,6 +31,7 @@
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "Template.Lambda::Template.Lambda.Functions.ApiFunction::Bind",
+        "Architectures": [ "arm64" ],
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
         "MemorySize": 128,

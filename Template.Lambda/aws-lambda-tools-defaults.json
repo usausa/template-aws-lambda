@@ -13,6 +13,6 @@
     "s3-prefix"     : "Template.Lambda/",
     "template"      : "serverless.template",
     "template-parameters" : "",
-    "s3-bucket"           : "work-serverless-cf",
+    "s3-bucket"           : "template-serverless-deploy",
     "stack-name"          : "TemplateLambda"
 }
