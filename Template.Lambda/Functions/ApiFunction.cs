@@ -42,9 +42,7 @@ public class ApiFunction
 
         logger.LogInformation("Bind request. path=[{Path}]", request.Path);
 
-        var input = request.Bind<ApiBindInput>();
-
-        if (String.IsNullOrEmpty(input.Name))
+        if (request.TryBind<ApiBindInput>(out var input) || String.IsNullOrEmpty(input.Name))
         {
             return Results.BadRequest();
         }

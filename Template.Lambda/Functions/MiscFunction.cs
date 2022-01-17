@@ -35,13 +35,23 @@ public class MiscFunction
         return Results.Ok(new MiscHttpOutput { Address = address });
     }
 
-    // TODO Validation
-    //public APIGatewayProxyResponse Validation(APIGatewayProxyRequest request)
-    //{
-    //    return Results.Ok();
-    //}
+    public APIGatewayProxyResponse Validation(APIGatewayProxyRequest request)
+    {
+        logger.LogInformation("Validation request. path=[{Path}]", request.Path);
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822", Justification = "Ignore")]
+        if (!request.TryBind<MiscValidationInput>(out var input) ||
+            !ValidationHelper.Validate(input) ||
+            !BindHelper.TryBind(request.Headers, "x", out int x))
+        {
+            return Results.BadRequest();
+        }
+
+        logger.LogDebug("Values input.Value={Value}, x={X}", input.Value, x);
+
+        return Results.Ok();
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ignore")]
     public APIGatewayProxyResponse Error()
     {
         throw new InvalidOperationException("Error");
