@@ -23,7 +23,7 @@ public class ApiFunction
 
     public APIGatewayProxyResponse Time(APIGatewayProxyRequest request)
     {
-        if (request.Headers.ContainsKey("X-Lambda-Hot-Load"))
+        if (request.Headers?.ContainsKey("X-Lambda-Hot-Load") ?? false)
         {
             return new Amazon.Lambda.APIGatewayEvents.APIGatewayProxyResponse { StatusCode = 200 };
         }
@@ -35,7 +35,7 @@ public class ApiFunction
 
     public APIGatewayProxyResponse Bind(APIGatewayProxyRequest request)
     {
-        if (request.Headers.ContainsKey("X-Lambda-Hot-Load"))
+        if (request.Headers?.ContainsKey("X-Lambda-Hot-Load") ?? false)
         {
             return new Amazon.Lambda.APIGatewayEvents.APIGatewayProxyResponse { StatusCode = 200 };
         }
