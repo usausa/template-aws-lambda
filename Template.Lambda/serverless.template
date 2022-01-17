@@ -50,8 +50,33 @@
           }
         }
       }
+    },
+
+    "Timer": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "Template.Lambda::Template.Lambda.Functions.TimerFunction::Handle",
+        "Architectures": [ "arm64" ],
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 128,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "Time": {
+            "Type": "Schedule",
+            "Properties": {
+              "Schedule": "cron(*/15 * * * ? *)"
+            }
+          }
+        }
+      }
     }
   },
+
   "Outputs": {
     "ApiURL": {
       "Description": "API endpoint URL for Prod environment",
