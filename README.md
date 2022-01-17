@@ -11,3 +11,8 @@ AWS Lambda work.
 
 * CI
 * ボイラーテンプレート自動生成
+
+## Next
+
+* Cognito連携
+* Kinesis連携

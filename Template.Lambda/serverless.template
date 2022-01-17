@@ -52,6 +52,31 @@
       }
     },
 
+    "MiscClient": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "Template.Lambda::Template.Lambda.Functions.MiscFunction::Http",
+        "Architectures": [ "arm64" ],
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 128,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/misc/http",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+
     "Timer": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
