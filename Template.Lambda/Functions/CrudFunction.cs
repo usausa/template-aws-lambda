@@ -31,7 +31,14 @@ public class CrudFunction
         this.dataService = dataService;
     }
 
-    // TODO list
+    public async Task<APIGatewayProxyResponse> List(APIGatewayProxyRequest request)
+    {
+        BindHelper.TryBind(request.QueryStringParameters, "token", out string token);
+
+        var result = await dataService.QueryDataListAsync(token, 20).ConfigureAwait(false);
+
+        return Results.Ok(new CrudListOutput { Entities = result.List, NextToken = result.Token });
+    }
 
     public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request)
     {

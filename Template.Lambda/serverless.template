@@ -76,6 +76,31 @@
       }
     },
 
+    "CrudList": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "Template.Lambda::Template.Lambda.Functions.CrudFunction::List",
+        "Architectures": [ "arm64" ],
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole",
+          "AmazonDynamoDBFullAccess"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/crud",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
     "CrudGet": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
