@@ -1,6 +1,7 @@
 namespace Template.Lambda.Functions;
 
 using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
 
 using Microsoft.Extensions.Logging;
 
@@ -21,26 +22,26 @@ public class ApiFunction
         this.logger = logger;
     }
 
-    public APIGatewayProxyResponse Time(APIGatewayProxyRequest request)
+    public APIGatewayProxyResponse Time(APIGatewayProxyRequest request, ILambdaContext context)
     {
         if (request.Headers?.ContainsKey("X-Lambda-Hot-Load") ?? false)
         {
             return new Amazon.Lambda.APIGatewayEvents.APIGatewayProxyResponse { StatusCode = 200 };
         }
 
-        logger.LogInformation("Time request. path=[{Path}]", request.Path);
+        logger.LogInformation("Time request. requestId=[{RequestId}]", context.AwsRequestId);
 
         return Results.Ok(new ApiTimeOutput { DateTime = DateTime.Now });
     }
 
-    public APIGatewayProxyResponse Bind(APIGatewayProxyRequest request)
+    public APIGatewayProxyResponse Bind(APIGatewayProxyRequest request, ILambdaContext context)
     {
         if (request.Headers?.ContainsKey("X-Lambda-Hot-Load") ?? false)
         {
             return new Amazon.Lambda.APIGatewayEvents.APIGatewayProxyResponse { StatusCode = 200 };
         }
 
-        logger.LogInformation("Bind request. path=[{Path}]", request.Path);
+        logger.LogInformation("Bind request. requestId=[{RequestId}]", context.AwsRequestId);
 
         if (request.TryBind<ApiBindInput>(out var input) || String.IsNullOrEmpty(input.Name))
         {

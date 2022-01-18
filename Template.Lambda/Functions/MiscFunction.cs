@@ -3,6 +3,7 @@ namespace Template.Lambda.Functions;
 using System;
 
 using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
 
 using Microsoft.Extensions.Logging;
 
@@ -26,18 +27,19 @@ public class MiscFunction
         this.httpClientFactory = httpClientFactory;
     }
 
-    public async Task<APIGatewayProxyResponse> Http(APIGatewayProxyRequest request)
+    public async Task<APIGatewayProxyResponse> Http(APIGatewayProxyRequest request, ILambdaContext context)
     {
-        logger.LogInformation("Http request. path=[{Path}]", request.Path);
+        logger.LogInformation("Http request. requestId=[{RequestId}]", context.AwsRequestId);
 
         using var client = httpClientFactory.CreateClient(ConnectorNames.Ipify);
         var address = await client.GetStringAsync(string.Empty).ConfigureAwait(false);
+
         return Results.Ok(new MiscHttpOutput { Address = address });
     }
 
-    public APIGatewayProxyResponse Validation(APIGatewayProxyRequest request)
+    public APIGatewayProxyResponse Validation(APIGatewayProxyRequest request, ILambdaContext context)
     {
-        logger.LogInformation("Validation request. path=[{Path}]", request.Path);
+        logger.LogInformation("Validation request. requestId=[{RequestId}]", context.AwsRequestId);
 
         if (!request.TryBind<MiscValidationInput>(out var input) ||
             !ValidationHelper.Validate(input) ||
