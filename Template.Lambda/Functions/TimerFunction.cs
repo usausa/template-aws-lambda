@@ -7,7 +7,7 @@ public class TimerFunction
     private readonly ILogger<TimerFunction> logger;
 
     public TimerFunction()
-        : this(ServiceLocator.CreateLogger<TimerFunction>())
+        : this(ServiceLocator.GetService<ILogger<TimerFunction>>())
     {
     }
 

@@ -12,7 +12,7 @@ public class ApiFunction
     private readonly ILogger<ApiFunction> logger;
 
     public ApiFunction()
-        : this(ServiceLocator.CreateLogger<ApiFunction>())
+        : this(ServiceLocator.GetService<ILogger<ApiFunction>>())
     {
     }
 

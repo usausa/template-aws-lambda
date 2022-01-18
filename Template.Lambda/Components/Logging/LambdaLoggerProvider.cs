@@ -2,23 +2,19 @@ namespace Template.Lambda.Components.Logging;
 
 using Microsoft.Extensions.Logging;
 
-public sealed class LambdaLoggerFactory : ILoggerFactory
+public sealed class LambdaLoggerProvider : ILoggerProvider
 {
     private readonly LogLevel defaultLevel;
 
     private readonly IDictionary<string, LogLevel>? levels;
 
-    public LambdaLoggerFactory(LogLevel defaultLevel, IDictionary<string, LogLevel>? levels)
+    public LambdaLoggerProvider(LogLevel defaultLevel, IDictionary<string, LogLevel>? levels)
     {
         this.defaultLevel = defaultLevel;
         this.levels = levels;
     }
 
     public void Dispose()
-    {
-    }
-
-    public void AddProvider(ILoggerProvider provider)
     {
     }
 

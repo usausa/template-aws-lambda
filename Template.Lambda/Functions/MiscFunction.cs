@@ -16,7 +16,7 @@ public class MiscFunction
     private readonly IHttpClientFactory httpClientFactory;
 
     public MiscFunction()
-        : this(ServiceLocator.CreateLogger<MiscFunction>(), ServiceLocator.ResolveHttpClientFactory())
+        : this(ServiceLocator.GetService<ILogger<MiscFunction>>(), ServiceLocator.GetService<IHttpClientFactory>())
     {
     }
 
