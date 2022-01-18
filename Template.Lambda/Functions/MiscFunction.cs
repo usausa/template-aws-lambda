@@ -27,8 +27,25 @@ public class MiscFunction
         this.httpClientFactory = httpClientFactory;
     }
 
+    public APIGatewayProxyResponse Time(APIGatewayProxyRequest request, ILambdaContext context)
+    {
+        if (request.Headers?.ContainsKey("X-Lambda-Ping") ?? false)
+        {
+            return new Amazon.Lambda.APIGatewayEvents.APIGatewayProxyResponse { StatusCode = 200 };
+        }
+
+        logger.LogInformation("Time request. requestId=[{RequestId}]", context.AwsRequestId);
+
+        return Results.Ok(new MiscTimeOutput { DateTime = DateTime.Now });
+    }
+
     public async Task<APIGatewayProxyResponse> Http(APIGatewayProxyRequest request, ILambdaContext context)
     {
+        if (request.Headers?.ContainsKey("X-Lambda-Ping") ?? false)
+        {
+            return new Amazon.Lambda.APIGatewayEvents.APIGatewayProxyResponse { StatusCode = 200 };
+        }
+
         logger.LogInformation("Http request. requestId=[{RequestId}]", context.AwsRequestId);
 
         using var client = httpClientFactory.CreateClient(ConnectorNames.Ipify);
@@ -37,8 +54,14 @@ public class MiscFunction
         return Results.Ok(new MiscHttpOutput { Address = address });
     }
 
+    // TODO Delete ?
     public APIGatewayProxyResponse Validation(APIGatewayProxyRequest request, ILambdaContext context)
     {
+        if (request.Headers?.ContainsKey("X-Lambda-Ping") ?? false)
+        {
+            return new Amazon.Lambda.APIGatewayEvents.APIGatewayProxyResponse { StatusCode = 200 };
+        }
+
         logger.LogInformation("Validation request. requestId=[{RequestId}]", context.AwsRequestId);
 
         if (!request.TryBind<MiscValidationInput>(out var input) ||
@@ -51,11 +74,5 @@ public class MiscFunction
         logger.LogDebug("Values input.Value={Value}, x={X}", input.Value, x);
 
         return Results.Ok();
-    }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Ignore")]
-    public APIGatewayProxyResponse Error()
-    {
-        throw new InvalidOperationException("Error");
     }
 }

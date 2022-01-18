@@ -16,10 +16,11 @@ exports.handler = async () => {
     functions = functions.concat(
         result.Functions
           .filter(f => targets.some(x => f.FunctionName.startsWith(x)) && (f.FunctionName !== warmer))
-          .map(f => lambda.invoke({ FunctionName: f.FunctionName, InvocationType: 'RequestResponse', Payload: JSON.stringify({ headers: { 'X-Lambda-Hot-Load': 'true' } }) }).promise()));
+          .map(f => lambda.invoke({ FunctionName: f.FunctionName, InvocationType: 'RequestResponse', Payload: JSON.stringify({ headers: { 'X-Lambda-Ping': 'true' } }) }).promise()));
     if (!result.nextmarker) {
       break;
     }
+
     result = await lambda.listFunctions({ Marker: result.nextmarker }).promise();
   };
 

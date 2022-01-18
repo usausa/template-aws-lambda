@@ -3,10 +3,10 @@
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application.",
   "Resources": {
-    "ApiTime": {
+    "MiscTime": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "Template.Lambda::Template.Lambda.Functions.ApiFunction::Time",
+        "Handler": "Template.Lambda::Template.Lambda.Functions.MiscFunction::Time",
         "Architectures": [ "arm64" ],
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
@@ -20,38 +20,13 @@
           "RootGet": {
             "Type": "Api",
             "Properties": {
-              "Path": "/api/time",
+              "Path": "/misc/time",
               "Method": "GET"
             }
           }
         }
       }
     },
-    "ApiBind": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "Template.Lambda::Template.Lambda.Functions.ApiFunction::Bind",
-        "Architectures": [ "arm64" ],
-        "Runtime": "dotnetcore3.1",
-        "CodeUri": "",
-        "MemorySize": 128,
-        "Timeout": 30,
-        "Role": null,
-        "Policies": [
-          "AWSLambdaBasicExecutionRole"
-        ],
-        "Events": {
-          "RootGet": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/api/bind",
-              "Method": "POST"
-            }
-          }
-        }
-      }
-    },
-
     "MiscHttp": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
