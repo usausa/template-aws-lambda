@@ -11,6 +11,6 @@ public class MiscFunctionTest
 
         var response = functions.Time();
 
-        Assert.True(response.DateTime >= DateTime.Now);
+        Assert.True(response.DateTime <= DateTime.Now);
     }
 }
