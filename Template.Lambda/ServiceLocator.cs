@@ -39,7 +39,7 @@ public static class ServiceLocator
         // Mapper
         services.AddSingleton<IMapper>(_ => new Mapper(new MapperConfiguration(c =>
         {
-            c.AddProfile<MappingProfile>();
+            c.AddProfile<HttpApiMappingProfile>();
         })));
 
         // Service

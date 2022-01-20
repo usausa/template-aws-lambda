@@ -17,7 +17,7 @@ public class DataService
         this.dynamoClient = dynamoClient;
     }
 
-    public async ValueTask<(List<DataEntity> List, string? Token)> QueryDataListAsync(string paginationToken, int limit)
+    public async ValueTask<(List<DataEntity> List, string? Token)> QueryDataListAsync(string? paginationToken, int limit)
     {
         using var context = new DynamoDBContext(dynamoClient);
         var table = context.GetTargetTable<DataEntity>();
@@ -27,7 +27,7 @@ public class DataService
             Limit = limit
         });
 
-        var list = await search.GetNextSetAsync();
+        var list = await search.GetNextSetAsync().ConfigureAwait(false);
         var entities = context.FromDocuments<DataEntity>(list).ToList();
         var nextToken = search.IsDone ? null : search.PaginationToken;
 

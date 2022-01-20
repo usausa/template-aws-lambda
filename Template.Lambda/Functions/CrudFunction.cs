@@ -1,16 +1,18 @@
 namespace Template.Lambda.Functions;
 
-using Amazon.Lambda.APIGatewayEvents;
+using AmazonLambdaExtension.Annotations;
 
 using AutoMapper;
 
-using Template.Lambda.Helpers;
 using Template.Lambda.Parameters;
 using Template.Models;
 using Template.Services;
 
 using Microsoft.Extensions.Logging;
 
+[Lambda]
+[ServiceResolver(typeof(HttpApiServiceResolver))]
+[Filter(typeof(HttpApiFilter))]
 public class CrudFunction
 {
     private readonly ILogger<CrudFunction> logger;
@@ -31,60 +33,39 @@ public class CrudFunction
         this.dataService = dataService;
     }
 
-    public async Task<APIGatewayProxyResponse> List(APIGatewayProxyRequest request)
+    [HttpApi]
+    public async ValueTask<CrudListOutput> List([FromQuery] string? token)
     {
-        BindHelper.TryBind(request.QueryStringParameters, "token", out string token);
-
         var result = await dataService.QueryDataListAsync(token, 20).ConfigureAwait(false);
 
-        return Results.Ok(new CrudListOutput { Entities = result.List, NextToken = result.Token });
+        return new CrudListOutput { Entities = result.List, NextToken = result.Token };
     }
 
-    public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request)
+    [HttpApi]
+    public async ValueTask<DataEntity?> Get([FromRoute] string id)
     {
-        if (!BindHelper.TryBind(request.PathParameters, "id", out string id))
-        {
-            return Results.BadRequest();
-        }
-
-        var entity = await dataService.QueryDataAsync(id).ConfigureAwait(false);
-        if (entity is null)
-        {
-            return Results.NotFound();
-        }
-
-        return Results.Ok(entity);
+        return await dataService.QueryDataAsync(id).ConfigureAwait(false);
     }
 
-    public async Task<APIGatewayProxyResponse> Create(APIGatewayProxyRequest request)
+    [HttpApi]
+    public async ValueTask<CrudCreateOutput> Create([FromBody] CrudCreateInput input)
     {
-        if (!request.TryBind<CrudCreateInput>(out var input) ||
-            !ValidationHelper.Validate(input))
-        {
-            return Results.BadRequest();
-        }
-
         var entity = mapper.Map<DataEntity>(input);
         entity.Id = Guid.NewGuid().ToString();
         entity.CreatedAt = DateTime.Now;
+
         await dataService.CreateDataAsync(entity).ConfigureAwait(false);
 
         logger.LogInformation("Data created. id=[{Id}]", entity.Id);
 
-        return Results.Ok(new CrudCreateOutput { Id = entity.Id });
+        return new CrudCreateOutput { Id = entity.Id };
     }
 
-    public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request)
+    [HttpApi]
+    public async ValueTask Delete([FromRoute] string id)
     {
-        if (!BindHelper.TryBind(request.PathParameters, "id", out string id))
-        {
-            return Results.BadRequest();
-        }
-
         await dataService.DeleteDataAsync(id).ConfigureAwait(false);
 
         logger.LogInformation("Data deleted. id=[{Id}]", id);
-
-        return Results.Ok();
     }
 }
