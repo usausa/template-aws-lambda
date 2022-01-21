@@ -14,6 +14,7 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Template.Components.DynamoDB;
 using Template.Lambda.Components.Logging;
 using Template.Services;
 
@@ -42,6 +43,7 @@ public sealed class HttpApiServiceResolver
 
         // Dynamo
         services.AddSingleton<IAmazonDynamoDB, AmazonDynamoDBClient>();
+        services.AddSingleton<IDynamoDBFactory, DynamoDBFactory>();
 
         // Http client
         services.AddHttpClient(ConnectorNames.Ipify, c =>
