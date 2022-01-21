@@ -7,7 +7,7 @@ using AmazonLambdaExtension.Annotations;
 using Template.Lambda.Parameters;
 
 [Lambda]
-[ServiceResolver(typeof(HttpApiServiceResolver))]
+[ServiceResolver(typeof(ServiceResolver))]
 [Filter(typeof(HttpApiFilter))]
 public sealed class MiscFunction
 {

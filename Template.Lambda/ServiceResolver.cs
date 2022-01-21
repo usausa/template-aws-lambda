@@ -19,7 +19,7 @@ using Template.Components.Json;
 using Template.Components.Logging;
 using Template.Services;
 
-public sealed class HttpApiServiceResolver
+public sealed class ServiceResolver
 {
     private readonly IServiceProvider provider = BuildProvider();
 

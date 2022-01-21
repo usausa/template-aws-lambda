@@ -1,33 +1,23 @@
 namespace Template.Lambda.Functions;
 
-using Microsoft.Extensions.DependencyInjection;
+using AmazonLambdaExtension.Annotations;
+
 using Microsoft.Extensions.Logging;
 
-using Template.Components.Logging;
-
+[Lambda]
+[ServiceResolver(typeof(ServiceResolver))]
+[Filter(typeof(EventFilter))]
 public sealed class TimerFunction
 {
     private readonly ILogger<TimerFunction> logger;
-
-    public TimerFunction()
-    {
-        // TODO
-        var provider = new ServiceCollection()
-            .AddLogging(c =>
-            {
-                c.ClearProviders();
-                c.AddProvider(LambdaLoggerHelper.CreateProviderByEnvironment());
-            })
-            .BuildServiceProvider();
-        logger = provider.GetRequiredService<ILogger<TimerFunction>>();
-    }
 
     public TimerFunction(ILogger<TimerFunction> logger)
     {
         this.logger = logger;
     }
 
-    public void Handle()
+    [Event]
+    public void Tick()
     {
         logger.LogInformation("Timer event raised.");
     }

@@ -11,7 +11,7 @@ using Template.Services;
 using Microsoft.Extensions.Logging;
 
 [Lambda]
-[ServiceResolver(typeof(HttpApiServiceResolver))]
+[ServiceResolver(typeof(ServiceResolver))]
 [Filter(typeof(HttpApiFilter))]
 public sealed class CrudFunction
 {
