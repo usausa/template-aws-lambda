@@ -156,7 +156,7 @@
     "Timer": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "Template.Lambda::Template.Lambda.Functions.TimerFunction::Handle",
+        "Handler": "Template.Lambda::Template.Lambda.Functions.TimerFunction_Tick::Handle",
         "Architectures": [ "arm64" ],
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
