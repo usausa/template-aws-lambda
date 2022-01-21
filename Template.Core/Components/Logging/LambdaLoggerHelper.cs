@@ -1,13 +1,13 @@
-namespace Template.Lambda.Components.Logging;
+namespace Template.Components.Logging;
 
 using System.Collections;
 
 using Microsoft.Extensions.Logging;
 
-public static class LoggingBuilderExtensions
+public static class LambdaLoggerHelper
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Ignore")]
-    public static void AddLambdaLogger(this ILoggingBuilder builder)
+    public static LambdaLoggerProvider CreateProviderByEnvironment()
     {
         var defaultValue = Environment.GetEnvironmentVariable("LogLevel");
         var defaultLevel = !String.IsNullOrEmpty(defaultValue) && Enum.TryParse(defaultValue, out LogLevel result)
@@ -17,6 +17,6 @@ public static class LoggingBuilderExtensions
             .OfType<DictionaryEntry>()
             .Where(x => (x.Key is string key) && key.StartsWith("LogLevel_", StringComparison.Ordinal))
             .ToDictionary(x => ((string)x.Key)[9..].Replace('_', '.'), x => Enum.TryParse(x.Value as string, out result) ? result : defaultLevel);
-        builder.AddProvider(new LambdaLoggerProvider(defaultLevel, logLevels.Count == 0 ? null : logLevels));
+        return new LambdaLoggerProvider(defaultLevel, logLevels.Count == 0 ? null : logLevels);
     }
 }

@@ -21,11 +21,6 @@ public class CrudFunction
 
     private readonly DataService dataService;
 
-    public CrudFunction()
-        : this(ServiceLocator.GetService<ILogger<CrudFunction>>(), ServiceLocator.GetService<IMapper>(), ServiceLocator.GetService<DataService>())
-    {
-    }
-
     public CrudFunction(ILogger<CrudFunction> logger, IMapper mapper, DataService dataService)
     {
         this.logger = logger;

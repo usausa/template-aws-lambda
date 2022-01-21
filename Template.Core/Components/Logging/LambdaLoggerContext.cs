@@ -1,4 +1,4 @@
-namespace Template.Lambda.Components.Logging;
+namespace Template.Components.Logging;
 
 public static class LambdaLoggerContext
 {

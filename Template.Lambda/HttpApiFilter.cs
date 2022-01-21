@@ -3,7 +3,7 @@ namespace Template.Lambda;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 
-using Template.Lambda.Components.Logging;
+using Template.Components.Logging;
 
 public sealed class HttpApiFilter
 {

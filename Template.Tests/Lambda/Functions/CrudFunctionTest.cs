@@ -23,7 +23,7 @@ public class CrudFunctionTest
             MockHelper.CreateHttpApiMapper(),
             MockHelper.CreateDataService(mockDynamoDBContext.Object));
 
-        var output = await lambda.Get("x");
+        var output = await lambda.Get("x").ConfigureAwait(false);
 
         Assert.Null(output);
     }

@@ -15,7 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using Template.Components.DynamoDB;
-using Template.Lambda.Components.Logging;
+using Template.Components.Json;
+using Template.Components.Logging;
 using Template.Services;
 
 public sealed class HttpApiServiceResolver
@@ -30,7 +31,7 @@ public sealed class HttpApiServiceResolver
         services.AddLogging(c =>
         {
             c.ClearProviders();
-            c.AddLambdaLogger();
+            c.AddProvider(LambdaLoggerHelper.CreateProviderByEnvironment());
         });
 
         // Serializer
@@ -38,7 +39,8 @@ public sealed class HttpApiServiceResolver
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Converters = { new DateTimeConverter() }
         }));
 
         // Dynamo

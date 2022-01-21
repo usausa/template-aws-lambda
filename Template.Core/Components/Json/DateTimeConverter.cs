@@ -1,4 +1,4 @@
-namespace Template.Lambda.Components.Json;
+namespace Template.Components.Json;
 
 using System;
 using System.Globalization;

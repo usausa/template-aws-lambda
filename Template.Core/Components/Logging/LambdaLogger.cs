@@ -1,4 +1,4 @@
-namespace Template.Lambda.Components.Logging;
+namespace Template.Components.Logging;
 
 using System;
 using System.Runtime.CompilerServices;
