@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 using Template.Components.Logging;
 
-public class TimerFunction
+public sealed class TimerFunction
 {
     private readonly ILogger<TimerFunction> logger;
 

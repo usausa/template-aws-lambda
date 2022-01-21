@@ -8,7 +8,7 @@ using Template.Models;
 
 using Xunit;
 
-public class CrudFunctionTest
+public sealed class CrudFunctionTest
 {
     [Fact]
     public async ValueTask TestGet()

@@ -2,7 +2,7 @@ namespace Template.Lambda.Functions;
 
 using Xunit;
 
-public class MiscFunctionTest
+public sealed class MiscFunctionTest
 {
     [Fact]
     public void TestTime()

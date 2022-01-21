@@ -9,7 +9,7 @@ using Template.Lambda.Parameters;
 [Lambda]
 [ServiceResolver(typeof(HttpApiServiceResolver))]
 [Filter(typeof(HttpApiFilter))]
-public class MiscFunction
+public sealed class MiscFunction
 {
     [HttpApi]
     public MiscTimeOutput Time()

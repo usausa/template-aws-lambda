@@ -3,7 +3,7 @@ namespace Template.Components.DynamoDB;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 
-public class DynamoDBFactory : IDynamoDBFactory
+public sealed class DynamoDBFactory : IDynamoDBFactory
 {
     private readonly IAmazonDynamoDB dynamoClient;
 

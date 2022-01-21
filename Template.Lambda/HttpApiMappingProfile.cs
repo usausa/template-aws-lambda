@@ -5,7 +5,7 @@ using AutoMapper;
 using Template.Lambda.Parameters;
 using Template.Models;
 
-public class HttpApiMappingProfile : Profile
+public sealed class HttpApiMappingProfile : Profile
 {
     public HttpApiMappingProfile()
     {

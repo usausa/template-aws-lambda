@@ -8,7 +8,7 @@ using Amazon.DynamoDBv2.DocumentModel;
 using Template.Components.DynamoDB;
 using Template.Models;
 
-public class DataService
+public sealed class DataService
 {
     private readonly IDynamoDBFactory dynamoDBFactory;
 
