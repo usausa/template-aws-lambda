@@ -34,20 +34,65 @@ dotnet lambda deploy-serverless --package Template.Lambda.zip
 
 ## 実装サンプル
 
-本テンプレートでは以下の機能を実装している。
+本テンプレートでは以下のサンプル機能を実装している。
 
-
-
-(TODO)
+* 自動生成した処理によるDI及びバインディング
+* 自動生成した処理によるValidation
+* 自動生成した処理による前処理フィルタとしてヘルスチェック機能の実装(暖気運転用)
+* カスタムLoggerProviderによるCloudWatchへのフォーマットログ出力
+* DynamoDB CRUD
+* IServiceCollectionエコシステムを利用した設定による外部Web API呼び出し
+* AutoMapperを用いたプレゼンテーションモデルとコアモデルの相互変換
+* DynamoDB部分をMoqとするUnitTestサンプル
+* CloudWatchによるバッチ処理の定期実行
 
 ## アーキテクチャ解説
 
+本テンプレートは以下のレイヤで構成する。
+
+### Base
+
+* ServiceResolver
+
+Lambda関数で使用する各種コンポーネントを定義するDIコンテナの定義。
+
+* HttpApiFilter/EventFilter
+
+HTTP API及びCloudWatchイベントのLambda関数に対するフィルタ処理実装。
+
+* HttpApiMappingProfile
+
+AutoMapperによるマッピング定義。
+
+### Functions
 
 
 (TODO)
 
+
+### Parameters
+
+HTTP APIのLambda関数で使用するRequest/Responseの構造の定義。
+DataAnnotationsの属性を指定することで[FromBody]で取得する入力に対するバリデーションが実行される。
+
+### Services
+
+アプリケーションサービス層の定義。
+
+### Models
+
+DynamoDB用のデータ構造等の定義。
+Lambda関数のResponseとしてModels層のデータを直接返す事は良いが、Requestとしての直接使用は禁止する。
+Requestについては必要な項目のみに制限してバリデーション用の属性を付加したプレゼンテーション用のモデルを作成し、Modelsのデータ構造とは相互にマッピングして使用する。
+また、Responseについても返す項目を制限する必要がある場合には同様の形とする。
+
+### Components
+
+ログ、データアクセスといった処理に対するプロバイダーやシリアライザー等の各種コンポーネントを定義する。
+
 ## 次に行う事
 
+* SNS/SQSのをイベントトリガーとする処理
 * RDS Proxyを使用したRDB操作
 * Cognito連携による認証処理
 * Kinesis連携によるIoT分析
