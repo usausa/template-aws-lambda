@@ -12,9 +12,9 @@ using Template.Lambda.Parameters;
 public sealed class MiscFunction
 {
     [HttpApi]
-    public MiscTimeOutput Time()
+    public MiscTimeResponse Time()
     {
-        return new MiscTimeOutput { DateTime = DateTime.Now };
+        return new MiscTimeResponse { DateTime = DateTime.Now };
     }
 
     [HttpApi]
@@ -24,12 +24,12 @@ public sealed class MiscFunction
     }
 
     [HttpApi]
-    public async ValueTask<MiscHttpOutput> Http([FromServices] IHttpClientFactory httpClientFactory)
+    public async ValueTask<MiscHttpResponse> Http([FromServices] IHttpClientFactory httpClientFactory)
     {
         using var client = httpClientFactory.CreateClient(ConnectorNames.Ipify);
 
         var address = await client.GetStringAsync(string.Empty).ConfigureAwait(false);
 
-        return new MiscHttpOutput { Address = address };
+        return new MiscHttpResponse { Address = address };
     }
 }

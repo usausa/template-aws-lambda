@@ -1,6 +1,6 @@
 namespace Template.Lambda.Parameters;
 
-public class MiscTimeOutput
+public class MiscTimeResponse
 {
     public DateTime DateTime { get; set; }
 }

@@ -9,6 +9,6 @@ public sealed class HttpApiMappingProfile : Profile
 {
     public HttpApiMappingProfile()
     {
-        CreateMap<CrudCreateInput, DataEntity>();
+        CreateMap<CrudCreateRequest, DataEntity>();
     }
 }

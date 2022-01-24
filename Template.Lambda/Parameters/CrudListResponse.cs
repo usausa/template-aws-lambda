@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 using Template.Models;
 
-public class CrudListOutput
+public class CrudListResponse
 {
     [AllowNull]
     public List<DataEntity> Entities { get; set; }

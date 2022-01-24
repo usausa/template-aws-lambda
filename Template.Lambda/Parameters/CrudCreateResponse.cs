@@ -2,8 +2,8 @@ namespace Template.Lambda.Parameters;
 
 using System.Diagnostics.CodeAnalysis;
 
-public class MiscHttpOutput
+public class CrudCreateResponse
 {
     [AllowNull]
-    public string Address { get; set; }
+    public string Id { get; set; }
 }

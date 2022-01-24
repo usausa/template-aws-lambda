@@ -29,11 +29,11 @@ public sealed class CrudFunction
     }
 
     [HttpApi]
-    public async ValueTask<CrudListOutput> List([FromQuery] string? token)
+    public async ValueTask<CrudListResponse> List([FromQuery] string? token)
     {
         var result = await dataService.QueryDataListAsync(token, 20).ConfigureAwait(false);
 
-        return new CrudListOutput { Entities = result.List, NextToken = result.Token };
+        return new CrudListResponse { Entities = result.List, NextToken = result.Token };
     }
 
     [HttpApi]
@@ -43,9 +43,9 @@ public sealed class CrudFunction
     }
 
     [HttpApi]
-    public async ValueTask<CrudCreateOutput> Create([FromBody] CrudCreateInput input)
+    public async ValueTask<CrudCreateResponse> Create([FromBody] CrudCreateRequest request)
     {
-        var entity = mapper.Map<DataEntity>(input);
+        var entity = mapper.Map<DataEntity>(request);
         entity.Id = Guid.NewGuid().ToString();
         entity.CreatedAt = DateTime.Now;
 
@@ -53,7 +53,7 @@ public sealed class CrudFunction
 
         logger.LogInformation("Data created. id=[{Id}]", entity.Id);
 
-        return new CrudCreateOutput { Id = entity.Id };
+        return new CrudCreateResponse { Id = entity.Id };
     }
 
     [HttpApi]
