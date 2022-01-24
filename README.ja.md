@@ -48,12 +48,12 @@ dotnet lambda deploy-serverless --package Template.Lambda.zip
 * 自動生成した処理によるDI及びバインディング
 * 自動生成した処理によるValidation
 * 自動生成した処理による前処理フィルタとしてヘルスチェック機能の実装(暖気運転用)
-* カスタムLoggerProviderによるCloudWatchへのフォーマットログ出力
+* カスタムLoggerProviderによるCloudWatch Logsへのフォーマットログ出力
 * DynamoDB CRUD
 * IServiceCollectionエコシステムを利用した設定による外部Web API呼び出し
 * AutoMapperを用いたプレゼンテーションモデルとコアモデルの相互変換
 * DynamoDB部分をMoqとするUnitTestサンプル
-* CloudWatchによるバッチ処理の定期実行
+* CloudWatch Eventsによるバッチ処理の定期実行
 
 ## アーキテクチャ
 
