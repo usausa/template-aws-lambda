@@ -1,49 +1,15 @@
 # Template for AWS Lambda application
 
-## 言語
+## 🍀 基本
 
-- [English](./README.md)
-- [Japanese](./README.ja.md)
-
-## 基本方針
-
-* AWS Lambda及びAPI Gatewayを使用したサーバレスプロジェクト構成の雛形を提携する
+* AWS Lambda及びAPI Gatewayを使用したサーバレスプロジェクト構成の雛形を提供する
 * コスト効率の良いarm64での実装を基本とする
-* アプリケーション全体は.NET Coreで構成するが、補助的なLambdaについてはNode.jsを用いることもある
+* アプリケーション全体は.NET Coreで構成するが、補助的なLambdaについてはNode.jsを用いる
 * ステージング環境、プロダクション環境等の環境に応じた設定が必要な場合は環境変数で指定する形とする
 * Lambdaのボイラーテンプレート部分はSource Generatorsを使用して自動生成する
 * アプリケーションのデプロイにはCloudFormationを使用する
 
-## ツール
-
-デプロイ用の成果物作成及びデバッグ作業を行うため、以下のコマンドで必要なツールをインストールしておく。
-
-```
-dotnet tool update -g amazon.lambda.tools
-dotnet tool update -g amazon.lambda.testtool-3.1
-```
-
-## ビルド
-
-以下のコマンドによりデプロイ用のzipを作成する。
-また、CloudFormationのテンプレートとしてserverless.templateも成果物とする。
-
-```
-dotnet lambda package Template.Lambda.zip -pl Template.Lambda -c Release -farch arm64
-copy /y Template.Lambda\serverless.template Publish\
-```
-
-## デプロイ
-
-コマンドラインでのデプロイは以下のコマンドを成果物のあるディレクトリで実行する。
-
-```
-dotnet lambda deploy-serverless --package Template.Lambda.zip
-```
-
-## 実装機能
-
-本テンプレートでは以下の機能サンプルを実装している。
+## ✨ 実装機能
 
 * 自動生成した処理によるDI及びバインディング
 * 自動生成した処理によるValidation
@@ -55,25 +21,54 @@ dotnet lambda deploy-serverless --package Template.Lambda.zip
 * DynamoDB部分をMoqとするUnitTestサンプル
 * CloudWatch Eventsによるバッチ処理の定期実行
 
-## アーキテクチャ
+![aws](./Document/Lambda.svg)
 
-本テンプレートは以下のレイヤで構成されている。
+## 🔧 ツール
 
-### Base
+デプロイ用の成果物作成及びデバッグ作業を行うため、以下のコマンドで必要なツールをインストールしておく。
 
-* ServiceResolver
+```
+dotnet tool update -g amazon.lambda.tools
+dotnet tool update -g amazon.lambda.testtool-3.1
+```
+
+## 🚀 ビルド
+
+以下のコマンドによりデプロイ用のzipを作成する。
+また、CloudFormationのテンプレートとしてserverless.templateも成果物とする。
+
+```
+dotnet lambda package Template.Lambda.zip -pl Template.Lambda -c Release -farch arm64
+copy /y Template.Lambda\serverless.template Publish\
+```
+
+## 📦 デプロイ
+
+コマンドラインでのデプロイは以下のコマンドを成果物のあるディレクトリで実行する。
+
+```
+dotnet lambda deploy-serverless --package Template.Lambda.zip
+```
+
+## 🔷 アーキテクチャ
+
+本テンプレートのレイヤ構成について記述する。
+
+### 1️⃣ Base
+
+#### ServiceResolver
 
 Lambda関数で使用する各種コンポーネントを定義するDIコンテナを定義する。
 
-* HttpApiFilter/EventFilter
+#### HttpApiFilter/EventFilter
 
 HTTP API及びCloudWatchイベントのLambda関数に対するフィルタ処理を定義する。
 
-* HttpApiMappingProfile
+#### HttpApiMappingProfile
 
 AutoMapperによるマッピングを定義する。
 
-### Functions
+### 2️⃣ Functions
 
 Lambda関数を定義する。  
 Lambda関数はSource Generatorsによりボイラーテンプレート部分が自動生成されるため、serverless.templateでの定義は以下のように変更する。
@@ -98,27 +93,27 @@ Lambda関数はSource Generatorsによりボイラーテンプレート部分が
 ...
 ```
 
-### Parameters
+### 3️⃣ Parameters
 
 HTTP APIのLambda関数で使用するRequest/Responseの構造を定義する。  
 DataAnnotationsの属性を指定することで[FromBody]で取得する入力に対するバリデーションが実行される。
 
-### Services
+### 4️⃣ Services
 
 アプリケーションサービス層を定義する。
 
-### Models
+### 5️⃣ Models
 
 DynamoDB等のデータ構造を定義する。  
 Lambda関数のResponseとしてModels層のデータを直接返す事は良いが、Requestとしての直接使用は禁止する。  
 Requestについては必要な項目のみに制限してバリデーション用の属性を付加したプレゼンテーション用のモデルを作成し、Modelsのデータ構造とは相互にマッピングして使用する。  
 また、Responseについても返す項目を制限する必要がある場合には同様の形とする。
 
-### Components
+### 6️⃣ Components
 
 ログ、データアクセスといった処理に対するプロバイダーやシリアライザー等の各種コンポーネントを定義する。
 
-## 次に行う事
+## 🚧 次に行う事
 
 * SNS/SQSのをイベントトリガーとする処理
 * RDS Proxyを使用したRDB操作

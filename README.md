@@ -1,5 +1,5 @@
 # Template for AWS Lambda application
 
-## Language
+## 🌏 言語
 
 - [Japanese](./README.ja.md)
