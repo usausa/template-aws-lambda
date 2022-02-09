@@ -1,7 +1,5 @@
 namespace Template.Lambda.Functions;
 
-using Xunit;
-
 public sealed class MiscFunctionTest
 {
     [Fact]

@@ -9,15 +9,11 @@ using Amazon.DynamoDBv2;
 
 using AmazonLambdaExtension.Serialization;
 
-using AutoMapper;
-
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 using Template.Components.DynamoDB;
 using Template.Components.Json;
 using Template.Components.Logging;
-using Template.Services;
 
 public sealed class ServiceResolver
 {

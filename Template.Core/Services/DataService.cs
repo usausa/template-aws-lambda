@@ -1,13 +1,5 @@
 namespace Template.Services;
 
-using System.Reflection;
-
-using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
-
-using Template.Components.DynamoDB;
-using Template.Models;
-
 public sealed class DataService
 {
     private readonly IDynamoDBFactory dynamoDBFactory;
@@ -50,17 +42,5 @@ public sealed class DataService
     {
         using var context = dynamoDBFactory.Create();
         await context.DeleteAsync<DataEntity>(id).ConfigureAwait(false);
-    }
-}
-
-public static class AsyncSearchExtensions
-{
-    // https://github.com/aws/aws-sdk-net/issues/671
-    public static string GetPaginationToken<T>(this AsyncSearch<T> asyncSearch)
-    {
-        var pi = asyncSearch.GetType().GetProperty("DocumentSearch", BindingFlags.NonPublic | BindingFlags.Instance)!;
-        var getter = pi.GetGetMethod(true)!;
-        var search = (Search)getter.Invoke(asyncSearch, null)!;
-        return search.PaginationToken;
     }
 }

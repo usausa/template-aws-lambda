@@ -1,15 +1,8 @@
 namespace Template;
 
-using Amazon.DynamoDBv2.DataModel;
-
-using AutoMapper;
-
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 using Template.Lambda;
-using Template.Mock;
-using Template.Services;
 
 public static class MockHelper
 {

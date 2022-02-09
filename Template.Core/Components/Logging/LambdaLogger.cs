@@ -1,9 +1,6 @@
 namespace Template.Components.Logging;
 
-using System;
 using System.Runtime.CompilerServices;
-
-using Microsoft.Extensions.Logging;
 
 public sealed class LambdaLogger : ILogger
 {

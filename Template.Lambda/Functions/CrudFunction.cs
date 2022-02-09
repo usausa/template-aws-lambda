@@ -1,15 +1,5 @@
 namespace Template.Lambda.Functions;
 
-using AmazonLambdaExtension.Annotations;
-
-using AutoMapper;
-
-using Template.Lambda.Parameters;
-using Template.Models;
-using Template.Services;
-
-using Microsoft.Extensions.Logging;
-
 [Lambda]
 [ServiceResolver(typeof(ServiceResolver))]
 [Filter(typeof(HttpApiFilter))]

@@ -1,13 +1,5 @@
 namespace Template.Lambda.Functions;
 
-using Amazon.DynamoDBv2.DataModel;
-
-using Moq;
-
-using Template.Models;
-
-using Xunit;
-
 public sealed class CrudFunctionTest
 {
     [Fact]

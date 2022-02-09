@@ -1,9 +1,5 @@
 namespace Template.Lambda.Parameters;
 
-using System.Diagnostics.CodeAnalysis;
-
-using Template.Models;
-
 public class CrudListResponse
 {
     [AllowNull]

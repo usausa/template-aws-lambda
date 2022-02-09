@@ -1,7 +1,6 @@
 namespace Template.Lambda;
 
 using Amazon.Lambda.APIGatewayEvents;
-using Amazon.Lambda.Core;
 
 using Template.Components.Logging;
 

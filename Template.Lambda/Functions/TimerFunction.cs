@@ -1,9 +1,5 @@
 namespace Template.Lambda.Functions;
 
-using AmazonLambdaExtension.Annotations;
-
-using Microsoft.Extensions.Logging;
-
 [Lambda]
 [ServiceResolver(typeof(ServiceResolver))]
 [Filter(typeof(EventFilter))]

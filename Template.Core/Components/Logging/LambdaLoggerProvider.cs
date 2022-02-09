@@ -1,7 +1,5 @@
 namespace Template.Components.Logging;
 
-using Microsoft.Extensions.Logging;
-
 public sealed class LambdaLoggerProvider : ILoggerProvider
 {
     private readonly LogLevel defaultLevel;

@@ -1,7 +1,5 @@
 namespace Template.Lambda;
 
-using Amazon.Lambda.Core;
-
 using Template.Components.Logging;
 
 public sealed class EventFilter

@@ -1,9 +1,5 @@
 namespace Template.Models;
 
-using System.Diagnostics.CodeAnalysis;
-
-using Amazon.DynamoDBv2.DataModel;
-
 [DynamoDBTable("Data")]
 public class DataEntity
 {

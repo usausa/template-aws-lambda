@@ -1,8 +1,5 @@
 namespace Template.Lambda.Parameters;
 
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-
 public class CrudCreateRequest
 {
     [Required]

@@ -1,11 +1,5 @@
 namespace Template.Lambda.Functions;
 
-using System;
-
-using AmazonLambdaExtension.Annotations;
-
-using Template.Lambda.Parameters;
-
 [Lambda]
 [ServiceResolver(typeof(ServiceResolver))]
 [Filter(typeof(HttpApiFilter))]

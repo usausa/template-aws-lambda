@@ -1,7 +1,5 @@
 namespace Template.Lambda.Parameters;
 
-using System.Diagnostics.CodeAnalysis;
-
 public class MiscHttpResponse
 {
     [AllowNull]
