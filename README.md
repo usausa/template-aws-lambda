@@ -33,7 +33,7 @@
 
 ```
 dotnet tool update -g amazon.lambda.tools
-dotnet tool update -g amazon.lambda.testtool-3.1
+dotnet tool update -g amazon.lambda.testtool-6.0
 ```
 
 ## 🚀 ビルド
