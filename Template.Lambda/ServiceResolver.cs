@@ -52,7 +52,7 @@ public sealed class ServiceResolver
         // Mapper
         services.AddSingleton<IMapper>(_ => new Mapper(new MapperConfiguration(c =>
         {
-            c.AddProfile<HttpApiMappingProfile>();
+            c.AddProfile<ApiMappingProfile>();
         })));
 
         // Service

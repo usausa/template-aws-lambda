@@ -2,7 +2,7 @@ namespace Template.Lambda.Functions;
 
 [Lambda]
 [ServiceResolver(typeof(ServiceResolver))]
-[Filter(typeof(HttpApiFilter))]
+[Filter(typeof(ApiFilter))]
 public sealed class CrudFunction
 {
     private readonly ILogger<CrudFunction> logger;
@@ -18,7 +18,7 @@ public sealed class CrudFunction
         this.dataService = dataService;
     }
 
-    [HttpApi]
+    [Api]
     public async ValueTask<CrudListResponse> List([FromQuery] string? token)
     {
         var result = await dataService.QueryDataListAsync(token, 20).ConfigureAwait(false);
@@ -26,13 +26,13 @@ public sealed class CrudFunction
         return new CrudListResponse { Entities = result.List, NextToken = result.Token };
     }
 
-    [HttpApi]
+    [Api]
     public async ValueTask<DataEntity?> Get([FromRoute] string id)
     {
         return await dataService.QueryDataAsync(id).ConfigureAwait(false);
     }
 
-    [HttpApi]
+    [Api]
     public async ValueTask<CrudCreateResponse> Create([FromBody] CrudCreateRequest request)
     {
         var entity = mapper.Map<DataEntity>(request);
@@ -46,7 +46,7 @@ public sealed class CrudFunction
         return new CrudCreateResponse { Id = entity.Id };
     }
 
-    [HttpApi]
+    [Api]
     public async ValueTask Delete([FromRoute] string id)
     {
         await dataService.DeleteDataAsync(id).ConfigureAwait(false);

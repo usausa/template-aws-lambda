@@ -1,8 +1,8 @@
 namespace Template.Lambda;
 
-public sealed class HttpApiMappingProfile : Profile
+public sealed class ApiMappingProfile : Profile
 {
-    public HttpApiMappingProfile()
+    public ApiMappingProfile()
     {
         CreateMap<CrudCreateRequest, DataEntity>();
     }
