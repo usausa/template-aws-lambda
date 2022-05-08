@@ -1,9 +1,5 @@
 # Template for AWS Lambda application
 
-## 🌏 言語
-
-- [Japanese](./README.ja.md)
-
 ## 🍀 基本
 
 * AWS Lambda及びAPI Gatewayを使用したサーバレスプロジェクト構成の雛形を提供する
@@ -64,11 +60,11 @@ dotnet lambda deploy-serverless --package Template.Lambda.zip
 
 Lambda関数で使用する各種コンポーネントを定義するDIコンテナを定義する。
 
-#### HttpApiFilter/EventFilter
+#### ApiFilter/EventFilter
 
-HTTP API及びCloudWatchイベントのLambda関数に対するフィルタ処理を定義する。
+API及びCloudWatchイベントのLambda関数に対するフィルタ処理を定義する。
 
-#### HttpApiMappingProfile
+#### ApiMappingProfile
 
 AutoMapperによるマッピングを定義する。
 
