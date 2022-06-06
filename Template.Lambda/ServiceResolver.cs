@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Template.Components.DynamoDB;
 using Template.Components.Json;
 using Template.Components.Logging;
+using Template.Components.Setting;
 
 public sealed class ServiceResolver
 {
@@ -29,6 +30,9 @@ public sealed class ServiceResolver
             c.ClearProviders();
             c.AddProvider(LambdaLoggerHelper.CreateProviderByEnvironment());
         });
+
+        // Setting
+        services.AddSingleton<ISetting, EnvironmentSetting>();
 
         // Serializer
         services.AddSingleton<IBodySerializer>(_ => new JsonBodySerializer(new JsonSerializerOptions
