@@ -1,4 +1,4 @@
-# Template for AWS Lambda application
+# Template project for AWS Lambda
 
 ## 🍀 基本
 
