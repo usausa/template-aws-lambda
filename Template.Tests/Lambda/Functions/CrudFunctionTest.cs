@@ -3,7 +3,7 @@ namespace Template.Lambda.Functions;
 public sealed class CrudFunctionTest
 {
     [Fact]
-    public async ValueTask TestGet()
+    public async Task TestGet()
     {
         var mockDynamoDBContext = new Mock<IDynamoDBContext>();
         mockDynamoDBContext
