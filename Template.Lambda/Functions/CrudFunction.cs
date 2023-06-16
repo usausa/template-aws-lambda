@@ -41,7 +41,7 @@ public sealed class CrudFunction
 
         await dataService.CreateDataAsync(entity).ConfigureAwait(false);
 
-        logger.LogInformation("Data created. id=[{Id}]", entity.Id);
+        logger.InfoDataCreated(entity.Id);
 
         return new CrudCreateResponse { Id = entity.Id };
     }
@@ -51,6 +51,6 @@ public sealed class CrudFunction
     {
         await dataService.DeleteDataAsync(id).ConfigureAwait(false);
 
-        logger.LogInformation("Data deleted. id=[{Id}]", id);
+        logger.InfoDataDeleted(id);
     }
 }
