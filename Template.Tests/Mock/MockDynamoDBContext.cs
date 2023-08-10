@@ -2,7 +2,7 @@ namespace Template.Mock;
 
 using Amazon.DynamoDBv2.DocumentModel;
 
-public class MockDynamoDBContext : IDynamoDBContext
+public sealed class MockDynamoDBContext : IDynamoDBContext
 {
     private readonly Queue<object> loadObjects = new();
 
