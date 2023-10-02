@@ -20,7 +20,7 @@ public sealed class ServiceResolver
 {
     private readonly IServiceProvider provider = BuildProvider();
 
-    private static IServiceProvider BuildProvider()
+    private static ServiceProvider BuildProvider()
     {
         var services = new ServiceCollection();
 
