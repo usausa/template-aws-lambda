@@ -35,7 +35,7 @@ public sealed class ServiceResolver
         services.AddSingleton<ISetting, EnvironmentSetting>();
 
         // Serializer
-        services.AddSingleton<IBodySerializer>(_ => new JsonBodySerializer(new JsonSerializerOptions
+        services.AddSingleton<IBodySerializer>(static _ => new JsonBodySerializer(new JsonSerializerOptions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
@@ -48,13 +48,13 @@ public sealed class ServiceResolver
         services.AddSingleton<IDynamoDBFactory, DynamoDBFactory>();
 
         // Http client
-        services.AddHttpClient(ConnectorNames.Ipify, c =>
+        services.AddHttpClient(ConnectorNames.Ipify, static c =>
         {
             c.BaseAddress = new Uri("https://api.ipify.org/");
         });
 
         // Mapper
-        services.AddSingleton<IMapper>(_ => new Mapper(new MapperConfiguration(c =>
+        services.AddSingleton<IMapper>(static _ => new Mapper(new MapperConfiguration(static c =>
         {
             c.AddProfile<ApiMappingProfile>();
         })));

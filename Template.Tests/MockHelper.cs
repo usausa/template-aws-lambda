@@ -10,7 +10,7 @@ public static class MockHelper
         new NullLogger<T>();
 
     public static IMapper CreateHttpApiMapper() =>
-        new Mapper(new MapperConfiguration(c => c.AddProfile<ApiMappingProfile>()));
+        new Mapper(new MapperConfiguration(static c => c.AddProfile<ApiMappingProfile>()));
 
     public static DataService CreateDataService(IDynamoDBContext dynamoDBContext) =>
         new(new MockDynamoDBFactory(dynamoDBContext));
