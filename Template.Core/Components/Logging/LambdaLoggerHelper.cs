@@ -12,7 +12,7 @@ public static class LambdaLoggerHelper
         var logLevels = Environment.GetEnvironmentVariables()
             .OfType<DictionaryEntry>()
             .Where(static x => (x.Key is string key) && key.StartsWith("LogLevel_", StringComparison.Ordinal))
-            .ToDictionary(static x => ((string)x.Key)[9..].Replace('_', '.'), static x => Enum.TryParse(x.Value as string, out result) ? result : defaultLevel);
+            .ToDictionary(static x => ((string)x.Key)[9..].Replace('_', '.'), x => Enum.TryParse(x.Value as string, out result) ? result : defaultLevel);
         return new LambdaLoggerProvider(defaultLevel, logLevels.Count == 0 ? null : logLevels);
     }
 }
