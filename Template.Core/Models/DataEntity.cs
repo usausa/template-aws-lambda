@@ -1,7 +1,7 @@
 namespace Template.Models;
 
 [DynamoDBTable("Data")]
-public class DataEntity
+public sealed class DataEntity
 {
     [DynamoDBHashKey]
     public string Id { get; set; } = default!;

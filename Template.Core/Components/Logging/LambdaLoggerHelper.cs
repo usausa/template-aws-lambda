@@ -2,7 +2,6 @@ namespace Template.Components.Logging;
 
 public static class LambdaLoggerHelper
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Ignore")]
     public static LambdaLoggerProvider CreateProviderByEnvironment()
     {
         var defaultValue = Environment.GetEnvironmentVariable("LogLevel");

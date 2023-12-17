@@ -4,13 +4,14 @@ using Amazon.Lambda.APIGatewayEvents;
 
 using Template.Components.Logging;
 
+#pragma warning disable IDE0060
 public sealed class ApiFilter
 {
     public APIGatewayProxyResponse? OnFunctionExecuting(APIGatewayProxyRequest request, ILambdaContext context)
     {
         if (request.Headers?.ContainsKey("X-Lambda-Ping") ?? false)
         {
-            return new Amazon.Lambda.APIGatewayEvents.APIGatewayProxyResponse { StatusCode = 200 };
+            return new APIGatewayProxyResponse { StatusCode = 200 };
         }
 
         LambdaLoggerContext.RequestId = context.AwsRequestId;
@@ -18,9 +19,9 @@ public sealed class ApiFilter
         return null;
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060", Justification = "Ignore")]
     public void OnFunctionExecuted(APIGatewayProxyRequest request, ILambdaContext context)
     {
         LambdaLoggerContext.RequestId = null;
     }
 }
+#pragma warning restore IDE0060

@@ -1,6 +1,6 @@
 namespace Template.Lambda.Parameters;
 
-public class CrudListResponse
+public sealed class CrudListResponse
 {
     public List<DataEntity> Entities { get; set; } = default!;
 

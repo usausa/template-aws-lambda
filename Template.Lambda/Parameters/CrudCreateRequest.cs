@@ -1,6 +1,6 @@
 namespace Template.Lambda.Parameters;
 
-public class CrudCreateRequest
+public sealed class CrudCreateRequest
 {
     [Required]
     public string Name { get; set; } = default!;

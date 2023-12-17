@@ -1,6 +1,6 @@
 namespace Template.Lambda.Parameters;
 
-public class MiscHttpResponse
+public sealed class MiscHttpResponse
 {
     public string Address { get; set; } = default!;
 }
