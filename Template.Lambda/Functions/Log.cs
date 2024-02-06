@@ -3,7 +3,7 @@ namespace Template.Lambda.Functions;
 using Microsoft.Extensions.Logging;
 
 #pragma warning disable SYSLIB1006
-public static partial class Log
+internal static partial class Log
 {
     [LoggerMessage(Level = LogLevel.Information, Message = "Data created. id=[{id}]")]
     public static partial void InfoDataCreated(this ILogger logger, string id);
