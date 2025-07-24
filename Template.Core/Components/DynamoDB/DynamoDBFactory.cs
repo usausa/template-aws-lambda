@@ -11,5 +11,7 @@ public sealed class DynamoDBFactory : IDynamoDBFactory
         this.dynamoClient = dynamoClient;
     }
 
-    public IDynamoDBContext Create() => new DynamoDBContext(dynamoClient);
+    public IDynamoDBContext Create() => new DynamoDBContextBuilder()
+        .WithDynamoDBClient(() => dynamoClient)
+        .Build();
 }

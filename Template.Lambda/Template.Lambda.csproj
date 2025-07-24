@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AWSProjectType>Lambda</AWSProjectType>
     <!-- This property makes the build directory similar to a publish directory and helps the AWS .NET Lambda Mock Test Tool find project dependencies. -->
@@ -19,22 +19,22 @@
   -->
 
   <ItemGroup>
-    <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
-    <PackageReference Include="Amazon.Lambda.DynamoDBEvents" Version="2.1.1" />
-    <PackageReference Include="Amazon.Lambda.S3Events" Version="3.0.1" />
-    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.1" />
-    <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.6.0" />
-    <PackageReference Include="Amazon.Lambda.SNSEvents" Version="2.0.0" />
-    <PackageReference Include="Amazon.Lambda.SQSEvents" Version="2.1.0" />
+    <PackageReference Include="Amazon.Lambda.Core" Version="2.7.0" />
+    <PackageReference Include="Amazon.Lambda.DynamoDBEvents" Version="3.1.1" />
+    <PackageReference Include="Amazon.Lambda.S3Events" Version="3.1.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.4.4" />
+    <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.7.1" />
+    <PackageReference Include="Amazon.Lambda.SNSEvents" Version="2.1.0" />
+    <PackageReference Include="Amazon.Lambda.SQSEvents" Version="2.2.0" />
     <PackageReference Include="AmazonLambdaExtension" Version="1.3.7" />
     <PackageReference Include="AmazonLambdaExtension.SourceGenerator" Version="1.3.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Usa.Smart.Core" Version="2.3.1" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
+    <PackageReference Include="Usa.Smart.Core" Version="2.4.4" />
   </ItemGroup>
 
   <ItemGroup>
