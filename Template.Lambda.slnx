@@ -12,6 +12,6 @@
     <File Path="Template.Lambda.sln.DotSettings" />
   </Folder>
   <Project Path="Template.Core/Template.Core.csproj" />
-  <Project Path="Template.Lambda/Template.Lambda.csproj" />
+  <Project Path="Template.Lambda/Template.Lambda.csproj" DefaultStartup="true" />
   <Project Path="Template.Tests/Template.Tests.csproj" />
 </Solution>
