@@ -8,9 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Core" Version="2.8.0" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.9.5" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.10" />
-    <PackageReference Include="Usa.Smart.Core" Version="2.4.6" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.10.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Usa.Smart.Core" Version="2.5.0" />
   </ItemGroup>
 
 </Project>
