@@ -41,8 +41,4 @@
     <ProjectReference Include="..\Template.Core\Template.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Usa.Smart.Analyzers.JapaneseComment" Version="1.6.0" />
-  </ItemGroup>
-
 </Project>

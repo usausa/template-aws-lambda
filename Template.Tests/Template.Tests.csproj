@@ -27,8 +27,4 @@
     <ProjectReference Include="..\Template.Lambda\Template.Lambda.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Usa.Smart.Analyzers.JapaneseComment" Version="1.6.0" />
-  </ItemGroup>
-
 </Project>

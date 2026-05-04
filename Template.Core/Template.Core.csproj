@@ -13,8 +13,4 @@
     <PackageReference Include="Usa.Smart.Core" Version="2.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Usa.Smart.Analyzers.JapaneseComment" Version="1.6.0" />
-  </ItemGroup>
-
 </Project>
