@@ -5,7 +5,7 @@ public sealed class MiscFunctionTest
     [Fact]
     public void TestTime()
     {
-        var functions = new MiscFunction();
+        var functions = new MiscFunction(TimeProvider.System);
 
         var response = functions.Time();
 

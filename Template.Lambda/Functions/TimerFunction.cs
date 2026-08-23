@@ -1,8 +1,5 @@
 namespace Template.Lambda.Functions;
 
-[Lambda]
-[ServiceResolver(typeof(ServiceResolver))]
-[Filter(typeof(EventFilter))]
 public sealed class TimerFunction
 {
     private readonly ILogger<TimerFunction> logger;
@@ -12,7 +9,7 @@ public sealed class TimerFunction
         this.logger = logger;
     }
 
-    [Event]
+    [LambdaFunction(ResourceName = "Timer", MemorySize = 128, Timeout = 30, Policies = "AWSLambdaBasicExecutionRole")]
     public void Tick()
     {
         logger.InfoTimerEventRaised();

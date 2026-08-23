@@ -1,24 +1,35 @@
 namespace Template.Lambda.Functions;
 
-[Lambda]
-[ServiceResolver(typeof(ServiceResolver))]
-[Filter(typeof(ApiFilter))]
+using Amazon.Lambda.Annotations.APIGateway;
+
 public sealed class MiscFunction
 {
-    [Api]
-    public MiscTimeResponse Time()
+    private const string Policies = "AWSLambdaBasicExecutionRole";
+
+    private readonly TimeProvider timeProvider;
+
+    public MiscFunction(TimeProvider timeProvider)
     {
-        return new MiscTimeResponse { DateTime = DateTime.Now };
+        this.timeProvider = timeProvider;
     }
 
-    [Api]
-    public int Calc(int x, int y)
+    [LambdaFunction(ResourceName = "MiscTime", MemorySize = 128, Timeout = 30, Policies = Policies)]
+    [HttpApi(LambdaHttpMethod.Get, "/misc/time")]
+    public MiscTimeResponse Time()
+    {
+        return new MiscTimeResponse { DateTime = timeProvider.GetLocalNow().DateTime };
+    }
+
+    [LambdaFunction(ResourceName = "MiscCalc", MemorySize = 128, Timeout = 30, Policies = Policies)]
+    [HttpApi(LambdaHttpMethod.Get, "/misc/calc")]
+    public int Calc([FromQuery] int x, [FromQuery] int y)
     {
         return x + y;
     }
 
-    [Api]
-    public async ValueTask<MiscHttpResponse> Http([FromServices] IHttpClientFactory httpClientFactory)
+    [LambdaFunction(ResourceName = "MiscHttp", MemorySize = 256, Timeout = 30, Policies = Policies)]
+    [HttpApi(LambdaHttpMethod.Get, "/misc/http")]
+    public async Task<MiscHttpResponse> Http([FromServices] IHttpClientFactory httpClientFactory)
     {
         using var client = httpClientFactory.CreateClient(ConnectorNames.Ipify);
 

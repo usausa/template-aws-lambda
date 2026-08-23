@@ -1,41 +1,51 @@
 namespace Template.Lambda.Functions;
 
-[Lambda]
-[ServiceResolver(typeof(ServiceResolver))]
-[Filter(typeof(ApiFilter))]
+using Amazon.Lambda.Annotations.APIGateway;
+
 public sealed class CrudFunction
 {
+    private const string Policies = "AWSLambdaBasicExecutionRole, AmazonDynamoDBFullAccess";
+
     private readonly ILogger<CrudFunction> logger;
 
     private readonly IMapper mapper;
 
     private readonly DataService dataService;
 
-    public CrudFunction(ILogger<CrudFunction> logger, IMapper mapper, DataService dataService)
+    private readonly TimeProvider timeProvider;
+
+    public CrudFunction(ILogger<CrudFunction> logger, IMapper mapper, DataService dataService, TimeProvider timeProvider)
     {
         this.logger = logger;
         this.mapper = mapper;
         this.dataService = dataService;
+        this.timeProvider = timeProvider;
     }
 
-    [Api]
-    public async ValueTask<CrudListResponse> List([FromQuery] string? token)
+    [LambdaFunction(ResourceName = "CrudList", MemorySize = 256, Timeout = 30, Policies = Policies)]
+    [HttpApi(LambdaHttpMethod.Get, "/crud")]
+    public async Task<CrudListResponse> List([FromQuery] string token = "")
     {
-        var result = await dataService.QueryDataListAsync(token, 20).ConfigureAwait(false);
+        var result = await dataService.QueryDataListAsync(String.IsNullOrEmpty(token) ? null : token, 20).ConfigureAwait(false);
 
         return new CrudListResponse { Entities = result.List, NextToken = result.Token };
     }
 
-    [Api]
-    public ValueTask<DataEntity?> Get([FromRoute] string id) =>
-        dataService.QueryDataAsync(id);
+    [LambdaFunction(ResourceName = "CrudGet", MemorySize = 256, Timeout = 30, Policies = Policies)]
+    [HttpApi(LambdaHttpMethod.Get, "/crud/{id}")]
+    public async Task<IHttpResult> Get(string id)
+    {
+        var entity = await dataService.QueryDataAsync(id).ConfigureAwait(false);
+        return entity is not null ? HttpResults.Ok(entity) : HttpResults.NotFound();
+    }
 
-    [Api]
-    public async ValueTask<CrudCreateResponse> Create([FromBody] CrudCreateRequest request)
+    [LambdaFunction(ResourceName = "CrudCreate", MemorySize = 256, Timeout = 30, Policies = Policies)]
+    [HttpApi(LambdaHttpMethod.Post, "/crud")]
+    public async Task<CrudCreateResponse> Create([FromBody] CrudCreateRequest request)
     {
         var entity = mapper.Map<DataEntity>(request);
         entity.Id = Guid.NewGuid().ToString();
-        entity.CreatedAt = DateTime.Now;
+        entity.CreatedAt = timeProvider.GetLocalNow().DateTime;
 
         await dataService.CreateDataAsync(entity).ConfigureAwait(false);
 
@@ -44,8 +54,9 @@ public sealed class CrudFunction
         return new CrudCreateResponse { Id = entity.Id };
     }
 
-    [Api]
-    public async ValueTask Delete([FromRoute] string id)
+    [LambdaFunction(ResourceName = "CrudDelete", MemorySize = 256, Timeout = 30, Policies = Policies)]
+    [HttpApi(LambdaHttpMethod.Delete, "/crud/{id}")]
+    public async Task Delete(string id)
     {
         await dataService.DeleteDataAsync(id).ConfigureAwait(false);
 

@@ -1,47 +1,30 @@
 namespace Template.Lambda;
 
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.Unicode;
-
 using Amazon.DynamoDBv2;
-
-using AmazonLambdaExtension.Serialization;
 
 using Microsoft.Extensions.DependencyInjection;
 
 using Template.Components.DynamoDB;
-using Template.Components.Json;
 using Template.Components.Logging;
 using Template.Components.Setting;
 
-public sealed class ServiceResolver
+[LambdaStartup]
+public sealed class Startup
 {
-    private readonly IServiceProvider provider = BuildProvider();
-
-    private static ServiceProvider BuildProvider()
+    public void ConfigureServices(IServiceCollection services)
     {
-        var services = new ServiceCollection();
-
         // Log
-        services.AddLogging(c =>
+        services.AddLogging(static c =>
         {
             c.ClearProviders();
             c.AddProvider(LambdaLoggerHelper.CreateProviderByEnvironment());
         });
 
+        // System
+        services.AddSingleton(TimeProvider.System);
+
         // Setting
         services.AddSingleton<ISetting, EnvironmentSetting>();
-
-        // Serializer
-        services.AddSingleton<IBodySerializer>(static _ => new JsonBodySerializer(new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            Converters = { new DateTimeConverter() }
-        }));
 
         // Dynamo
         services.AddSingleton<IAmazonDynamoDB, AmazonDynamoDBClient>();
@@ -61,12 +44,5 @@ public sealed class ServiceResolver
 
         // Service
         services.AddSingleton<DataService>();
-
-        return services.BuildServiceProvider();
-    }
-
-    public T? GetService<T>()
-    {
-        return provider.GetService<T>();
     }
 }

@@ -187,6 +187,16 @@ public sealed class MockDynamoDBContext : IDynamoDBContext
 
     public IAsyncSearch<T> FromQueryAsync<T>(QueryOperationConfig queryConfig, FromQueryConfig fromQueryConfig) => throw new NotSupportedException();
 
+    public IAsyncSearch<T> QueryAsync<T>(QueryConditional queryConditional, QueryConfig queryConfig) => throw new NotSupportedException();
+
+    public IAsyncSearch<T> FromQueryAsync<T>(QueryDocumentOperationRequest queryConfig, FromQueryConfig fromQueryConfig) => throw new NotSupportedException();
+
+    // Vector
+
+    public IAsyncSearchVectors<T> SearchVectorsAsync<T>(List<float> searchVector, int topK, SearchVectorsConfig searchConfig) => throw new NotSupportedException();
+
+    public IAsyncSearchVectors<T> FromSearchVectorsAsync<T>(SearchVectorsOperationRequest searchVectorsOperationRequest, FromSearchVectorsConfig fromSearchVectorsConfig) => throw new NotSupportedException();
+
     // Table
 
     public ITable GetTargetTable<T>() => throw new NotSupportedException();

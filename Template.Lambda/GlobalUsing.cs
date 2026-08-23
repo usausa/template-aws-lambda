@@ -19,9 +19,8 @@ global using System.Text;
 global using System.Threading;
 global using System.Threading.Tasks;
 
+global using Amazon.Lambda.Annotations;
 global using Amazon.Lambda.Core;
-
-global using AmazonLambdaExtension.Annotations;
 
 global using AutoMapper;
 
