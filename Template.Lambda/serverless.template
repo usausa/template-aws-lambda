@@ -173,7 +173,9 @@
           "AmazonDynamoDBFullAccess"
         ],
         "PackageType": "Zip",
-        "Architectures": [ "arm64" ],
+        "Architectures": [
+          "arm64"
+        ],
         "Handler": "Template.Lambda::Template.Lambda.Functions.CrudFunction_List_Generated::List",
         "Events": {
           "RootGet": {
@@ -210,7 +212,9 @@
           "AmazonDynamoDBFullAccess"
         ],
         "PackageType": "Zip",
-        "Architectures": [ "arm64" ],
+        "Architectures": [
+          "arm64"
+        ],
         "Handler": "Template.Lambda::Template.Lambda.Functions.CrudFunction_Get_Generated::Get",
         "Events": {
           "RootGet": {
@@ -247,7 +251,9 @@
           "AmazonDynamoDBFullAccess"
         ],
         "PackageType": "Zip",
-        "Architectures": [ "arm64" ],
+        "Architectures": [
+          "arm64"
+        ],
         "Handler": "Template.Lambda::Template.Lambda.Functions.CrudFunction_Create_Generated::Create",
         "Events": {
           "RootPost": {
@@ -284,7 +290,9 @@
           "AmazonDynamoDBFullAccess"
         ],
         "PackageType": "Zip",
-        "Architectures": [ "arm64" ],
+        "Architectures": [
+          "arm64"
+        ],
         "Handler": "Template.Lambda::Template.Lambda.Functions.CrudFunction_Delete_Generated::Delete",
         "Events": {
           "RootDelete": {
@@ -320,7 +328,9 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Architectures": [ "arm64" ],
+        "Architectures": [
+          "arm64"
+        ],
         "Handler": "Template.Lambda::Template.Lambda.Functions.MiscFunction_Time_Generated::Time",
         "Events": {
           "RootGet": {
@@ -356,7 +366,9 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Architectures": [ "arm64" ],
+        "Architectures": [
+          "arm64"
+        ],
         "Handler": "Template.Lambda::Template.Lambda.Functions.MiscFunction_Calc_Generated::Calc",
         "Events": {
           "RootGet": {
@@ -392,7 +404,9 @@
           "AWSLambdaBasicExecutionRole"
         ],
         "PackageType": "Zip",
-        "Architectures": [ "arm64" ],
+        "Architectures": [
+          "arm64"
+        ],
         "Handler": "Template.Lambda::Template.Lambda.Functions.MiscFunction_Http_Generated::Http",
         "Events": {
           "RootGet": {

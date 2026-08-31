@@ -33,7 +33,9 @@ public sealed class MiscFunction
     {
         using var client = httpClientFactory.CreateClient(ConnectorNames.Ipify);
 
+#pragma warning disable CA2234
         var address = await client.GetStringAsync(string.Empty).ConfigureAwait(false);
+#pragma warning restore CA2234
 
         return new MiscHttpResponse { Address = address };
     }

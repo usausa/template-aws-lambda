@@ -18,6 +18,6 @@ public sealed class LambdaLoggerProvider : ILoggerProvider
 
     public ILogger CreateLogger(string categoryName)
     {
-        return new LambdaLogger(categoryName, (levels is not null && levels.TryGetValue(categoryName, out var level)) ? level : defaultLevel);
+        return new LambdaLogger(categoryName, ((levels is not null) && levels.TryGetValue(categoryName, out var level)) ? level : defaultLevel);
     }
 }
