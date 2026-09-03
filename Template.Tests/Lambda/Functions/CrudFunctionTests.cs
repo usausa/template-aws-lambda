@@ -1,6 +1,6 @@
 namespace Template.Lambda.Functions;
 
-public sealed class CrudFunctionTest
+public sealed class CrudFunctionTests
 {
     [Fact]
     public async Task TestGet()

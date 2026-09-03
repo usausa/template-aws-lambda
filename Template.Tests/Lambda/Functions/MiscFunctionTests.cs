@@ -1,6 +1,6 @@
 namespace Template.Lambda.Functions;
 
-public sealed class MiscFunctionTest
+public sealed class MiscFunctionTests
 {
     [Fact]
     public void TestTime()
