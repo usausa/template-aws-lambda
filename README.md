@@ -21,7 +21,7 @@
 * DynamoDB部分をMoqとするUnitTestサンプル
 * CloudWatch Eventsによるバッチ処理の定期実行
 
-![aws](./Document/Lambda.drawio.svg)
+![aws](./docs/Lambda.drawio.svg)
 
 ## 🔧 ツール
 
