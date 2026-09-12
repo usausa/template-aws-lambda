@@ -22,8 +22,6 @@ global using System.Threading.Tasks;
 global using Amazon.Lambda.Annotations;
 global using Amazon.Lambda.Core;
 
-global using AutoMapper;
-
 global using Microsoft.Extensions.Logging;
 
 global using Smart;

@@ -36,12 +36,6 @@ public sealed class Startup
             c.BaseAddress = new Uri("https://api.ipify.org/");
         });
 
-        // Mapper
-        services.AddSingleton<IMapper>(static _ => new Mapper(new MapperConfiguration(static c =>
-        {
-            c.AddProfile<ApiMappingProfile>();
-        })));
-
         // Service
         services.AddSingleton<DataService>();
     }

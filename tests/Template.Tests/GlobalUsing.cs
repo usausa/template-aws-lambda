@@ -20,8 +20,6 @@ global using System.Threading.Tasks;
 
 global using Amazon.DynamoDBv2.DataModel;
 
-global using AutoMapper;
-
 global using Microsoft.Extensions.Logging;
 
 global using Smart;

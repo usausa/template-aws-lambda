@@ -10,7 +10,6 @@ public sealed class CrudFunctionTests
 
         var lambda = new CrudFunction(
             MockHelper.CreateNullLogger<CrudFunction>(),
-            MockHelper.CreateHttpApiMapper(),
             MockHelper.CreateDataService(mockDynamoDBContext),
             TimeProvider.System);
 

@@ -2,22 +2,21 @@ namespace Template.Lambda.Functions;
 
 using Amazon.Lambda.Annotations.APIGateway;
 
+using Template.Lambda.Mappers;
+
 public sealed class CrudFunction
 {
     private const string Policies = "AWSLambdaBasicExecutionRole, AmazonDynamoDBFullAccess";
 
     private readonly ILogger<CrudFunction> logger;
 
-    private readonly IMapper mapper;
-
     private readonly DataService dataService;
 
     private readonly TimeProvider timeProvider;
 
-    public CrudFunction(ILogger<CrudFunction> logger, IMapper mapper, DataService dataService, TimeProvider timeProvider)
+    public CrudFunction(ILogger<CrudFunction> logger, DataService dataService, TimeProvider timeProvider)
     {
         this.logger = logger;
-        this.mapper = mapper;
         this.dataService = dataService;
         this.timeProvider = timeProvider;
     }
@@ -43,7 +42,7 @@ public sealed class CrudFunction
     [HttpApi(LambdaHttpMethod.Post, "/crud")]
     public async Task<CrudCreateResponse> Create([FromBody] CrudCreateRequest request)
     {
-        var entity = mapper.Map<DataEntity>(request);
+        var entity = request.ToEntity();
         entity.Id = Guid.NewGuid().ToString();
         entity.CreatedAt = timeProvider.GetLocalNow().DateTime;
 
