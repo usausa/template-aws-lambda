@@ -2,9 +2,9 @@ namespace Template.Lambda.Functions;
 
 using Amazon.Lambda.Annotations.APIGateway;
 
-using Template.Lambda.Mappers;
+using Smart.Mapper;
 
-public sealed class CrudFunction
+public sealed partial class CrudFunction
 {
     private const string Policies = "AWSLambdaBasicExecutionRole, AmazonDynamoDBFullAccess";
 
@@ -38,11 +38,14 @@ public sealed class CrudFunction
         return entity is not null ? HttpResults.Ok(entity) : HttpResults.NotFound();
     }
 
+    [Mapper]
+    private static partial DataEntity ToEntity(CrudCreateRequest request);
+
     [LambdaFunction(ResourceName = "CrudCreate", MemorySize = 256, Timeout = 30, Policies = Policies)]
     [HttpApi(LambdaHttpMethod.Post, "/crud")]
     public async Task<CrudCreateResponse> Create([FromBody] CrudCreateRequest request)
     {
-        var entity = request.ToEntity();
+        var entity = ToEntity(request);
         entity.Id = Guid.NewGuid().ToString();
         entity.CreatedAt = timeProvider.GetLocalNow().DateTime;
 
