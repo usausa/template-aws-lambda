@@ -38,9 +38,11 @@ public sealed class DataService
         await context.SaveAsync(entity).ConfigureAwait(false);
     }
 
-    public async ValueTask DeleteDataAsync(string id)
+    public async ValueTask<bool> DeleteDataAsync(string id)
     {
         using var context = dynamoDBFactory.Create();
-        await context.DeleteAsync<DataEntity>(id).ConfigureAwait(false);
+        var table = context.GetTargetTable<DataEntity>();
+        var document = await table.DeleteItemAsync(id, new DeleteItemOperationConfig { ReturnValues = ReturnValues.AllOldAttributes }).ConfigureAwait(false);
+        return document.Count > 0;
     }
 }

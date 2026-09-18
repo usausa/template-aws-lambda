@@ -47,7 +47,7 @@ public sealed partial class CrudFunction
     {
         var entity = ToEntity(request);
         entity.Id = Guid.NewGuid().ToString();
-        entity.CreatedAt = timeProvider.GetLocalNow().DateTime;
+        entity.CreatedAt = timeProvider.GetUtcNow().UtcDateTime;
 
         await dataService.CreateDataAsync(entity).ConfigureAwait(false);
 
@@ -58,10 +58,16 @@ public sealed partial class CrudFunction
 
     [LambdaFunction(ResourceName = "CrudDelete", MemorySize = 256, Timeout = 30, Policies = Policies)]
     [HttpApi(LambdaHttpMethod.Delete, "/crud/{id}")]
-    public async Task Delete(string id)
+    public async Task<IHttpResult> Delete(string id)
     {
-        await dataService.DeleteDataAsync(id).ConfigureAwait(false);
+        var deleted = await dataService.DeleteDataAsync(id).ConfigureAwait(false);
+        if (!deleted)
+        {
+            return HttpResults.NotFound();
+        }
 
         logger.InfoDataDeleted(id);
+
+        return HttpResults.Ok();
     }
 }

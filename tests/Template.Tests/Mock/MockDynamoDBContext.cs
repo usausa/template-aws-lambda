@@ -6,6 +6,8 @@ public sealed class MockDynamoDBContext : IDynamoDBContext
 {
     private readonly Queue<object> loadObjects = new();
 
+    public MockTable Table { get; } = new();
+
     public void Dispose()
     {
     }
@@ -199,7 +201,7 @@ public sealed class MockDynamoDBContext : IDynamoDBContext
 
     // Table
 
-    public ITable GetTargetTable<T>() => throw new NotSupportedException();
+    public ITable GetTargetTable<T>() => Table;
 
     public ITable GetTargetTable<T>(DynamoDBOperationConfig operationConfig) => throw new NotSupportedException();
 
