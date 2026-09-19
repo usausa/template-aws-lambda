@@ -15,7 +15,7 @@
 * 自動生成した処理によるValidation
 * 自動生成した処理による前処理フィルタとしてヘルスチェック機能の実装(暖気運転用)
 * カスタムLoggerProviderによるCloudWatch Logsへのフォーマットログ出力
-* DynamoDB CRUD
+* DynamoDB CRUD(一覧は Kind + CreatedAt の GSI への Query でページング。Scan は使わない)
 * IServiceCollectionエコシステムを利用した設定による外部Web API呼び出し
 * AutoMapperを用いたプレゼンテーションモデルとコアモデルの相互変換
 * DynamoDB部分をMoqとするUnitTestサンプル

@@ -13,8 +13,10 @@ public sealed class DataService
     {
         using var context = dynamoDBFactory.Create();
         var table = context.GetTargetTable<DataEntity>();
-        var search = table.Scan(new ScanOperationConfig
+        var search = table.Query(new QueryOperationConfig
         {
+            IndexName = DataEntity.ListIndexName,
+            Filter = new QueryFilter(nameof(DataEntity.Kind), QueryOperator.Equal, DataEntity.DefaultKind),
             PaginationToken = paginationToken,
             Limit = limit
         });
