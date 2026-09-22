@@ -6,7 +6,13 @@ public sealed class MockDynamoDBContext : IDynamoDBContext
 {
     private readonly Queue<object> loadObjects = new();
 
+    private readonly List<object> savedObjects = [];
+
+    private Exception? saveException;
+
     public MockTable Table { get; } = new();
+
+    public IReadOnlyList<object> SavedObjects => savedObjects;
 
     public void Dispose()
     {
@@ -76,7 +82,18 @@ public sealed class MockDynamoDBContext : IDynamoDBContext
 
     // Save
 
-    public Task SaveAsync<T>(T value, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public void SetupSaveFailure(Exception exception) => saveException = exception;
+
+    public Task SaveAsync<T>(T value, CancellationToken cancellationToken = default)
+    {
+        if (saveException is not null)
+        {
+            return Task.FromException(saveException);
+        }
+
+        savedObjects.Add(value!);
+        return Task.CompletedTask;
+    }
 
     public Task SaveAsync<T>(T value, DynamoDBOperationConfig operationConfig, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 

@@ -8,6 +8,9 @@ internal static partial class Log
     [LoggerMessage(Level = LogLevel.Information, Message = "Data created. id=[{id}]")]
     public static partial void InfoDataCreated(this ILogger logger, string id);
 
+    [LoggerMessage(Level = LogLevel.Information, Message = "Data updated. id=[{id}]")]
+    public static partial void InfoDataUpdated(this ILogger logger, string id);
+
     [LoggerMessage(Level = LogLevel.Information, Message = "Data deleted. id=[{id}]")]
     public static partial void InfoDataDeleted(this ILogger logger, string id);
 

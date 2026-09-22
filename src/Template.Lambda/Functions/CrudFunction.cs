@@ -56,6 +56,24 @@ public sealed partial class CrudFunction
         return new CrudCreateResponse { Id = entity.Id };
     }
 
+    [LambdaFunction(ResourceName = "CrudUpdate", MemorySize = 256, Timeout = 30, Policies = Policies)]
+    [HttpApi(LambdaHttpMethod.Put, "/crud/{id}")]
+    public async Task<IHttpResult> Update(string id, [FromBody] CrudUpdateRequest request)
+    {
+        var (status, entity) = await dataService.UpdateDataAsync(id, request.Name, request.Version).ConfigureAwait(false);
+        switch (status)
+        {
+            case DataUpdateStatus.NotFound:
+                return HttpResults.NotFound();
+            case DataUpdateStatus.VersionMismatch:
+                return HttpResults.NewResult(HttpStatusCode.PreconditionFailed);
+        }
+
+        logger.InfoDataUpdated(id);
+
+        return HttpResults.Ok(entity);
+    }
+
     [LambdaFunction(ResourceName = "CrudDelete", MemorySize = 256, Timeout = 30, Policies = Policies)]
     [HttpApi(LambdaHttpMethod.Delete, "/crud/{id}")]
     public async Task<IHttpResult> Delete(string id)

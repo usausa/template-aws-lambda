@@ -1,5 +1,7 @@
 namespace Template.Services;
 
+using Amazon.DynamoDBv2.Model;
+
 public sealed class DataService
 {
     private readonly IDynamoDBFactory dynamoDBFactory;
@@ -38,6 +40,30 @@ public sealed class DataService
     {
         using var context = dynamoDBFactory.Create();
         await context.SaveAsync(entity).ConfigureAwait(false);
+    }
+
+    // Saves only when the stored Version equals the one the caller saw. The item is loaded first so that
+    // the attributes not in the request (Kind, CreatedAt) are kept.
+    public async ValueTask<(DataUpdateStatus Status, DataEntity? Entity)> UpdateDataAsync(string id, string name, int version)
+    {
+        using var context = dynamoDBFactory.Create();
+        var entity = await context.LoadAsync<DataEntity>(id).ConfigureAwait(false);
+        if (entity is null)
+        {
+            return (DataUpdateStatus.NotFound, null);
+        }
+
+        entity.Name = name;
+        entity.Version = version;
+        try
+        {
+            await context.SaveAsync(entity).ConfigureAwait(false);
+            return (DataUpdateStatus.Success, entity);
+        }
+        catch (ConditionalCheckFailedException)
+        {
+            return (DataUpdateStatus.VersionMismatch, null);
+        }
     }
 
     public async ValueTask<bool> DeleteDataAsync(string id)

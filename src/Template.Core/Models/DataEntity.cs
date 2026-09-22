@@ -17,6 +17,10 @@ public sealed class DataEntity
 
     public string Name { get; set; } = default!;
 
+    // Optimistic locking: SaveAsync succeeds only when the stored Version matches, then increments it
+    [DynamoDBVersion]
+    public int? Version { get; set; }
+
     [DynamoDBGlobalSecondaryIndexRangeKey(ListIndexName)]
     public DateTime CreatedAt { get; set; }
 }
