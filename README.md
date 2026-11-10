@@ -1,77 +1,79 @@
 # Template project for AWS Lambda
 
-## 🍀 基本
+English | [日本語](README.ja.md)
 
-* AWS Lambda及びAPI Gatewayを使用したサーバレスプロジェクト構成の雛形を提供する
-* コスト効率の良いarm64での実装を基本とする
-* アプリケーション全体は.NET Coreで構成するが、補助的なLambdaについてはNode.jsを用いる
-* ステージング環境、プロダクション環境等の環境に応じた設定が必要な場合は環境変数で指定する形とする
-* Lambdaのボイラーテンプレート部分はSource Generatorsを使用して自動生成する
-* アプリケーションのデプロイにはCloudFormationを使用する
+## 🍀 Basics
 
-## ✨ 実装機能
+* Provides a template of a serverless project structure using AWS Lambda and API Gateway
+* Uses the cost-efficient arm64 as the basis of the implementation
+* The application as a whole is built with .NET Core, while auxiliary Lambdas use Node.js
+* Settings that depend on the environment, such as staging and production, are specified with environment variables
+* The boilerplate of the Lambdas is generated automatically with Source Generators
+* CloudFormation is used to deploy the application
 
-* 自動生成した処理によるDI及びバインディング
-* 自動生成した処理によるValidation
-* 自動生成した処理による前処理フィルタとしてヘルスチェック機能の実装(暖気運転用)
-* カスタムLoggerProviderによるCloudWatch Logsへのフォーマットログ出力
-* DynamoDB CRUD(一覧は Kind + CreatedAt の GSI への Query でページング。Scan は使わない。更新は `Version` 属性の条件付き書き込みで楽観的同時実行制御、不一致は 412)
-* IServiceCollectionエコシステムを利用した設定による外部Web API呼び出し
-* AutoMapperを用いたプレゼンテーションモデルとコアモデルの相互変換
-* DynamoDB部分をMoqとするUnitTestサンプル
-* CloudWatch Eventsによるバッチ処理の定期実行
+## ✨ Features
+
+* DI and binding with generated code
+* Validation with generated code
+* Health check (for warm-up) as a pre-processing filter with generated code
+* Formatted log output to CloudWatch Logs with a custom LoggerProvider
+* DynamoDB CRUD (the list is paged with a Query on the Kind + CreatedAt GSI, without Scan. Updates use conditional writes on the `Version` attribute for optimistic concurrency, and a mismatch returns 412)
+* External Web API calls configured with the IServiceCollection ecosystem
+* Conversion between presentation models and core models with AutoMapper
+* Unit test sample with the DynamoDB part mocked with Moq
+* Scheduled batch processing with CloudWatch Events
 
 ![aws](./docs/Lambda.drawio.svg)
 
-## 🔧 ツール
+## 🔧 Tools
 
-デプロイ用の成果物作成及びデバッグ作業を行うため、以下のコマンドで必要なツールをインストールしておく。
+Install the tools for creating the deployment artifacts and for debugging with the following commands.
 
 ```
 dotnet tool update -g amazon.lambda.tools
 dotnet tool update -g amazon.lambda.testtool-10.0
 ```
 
-## 🚀 ビルド
+## 🚀 Build
 
-以下のコマンドによりデプロイ用のzipを作成する。
-また、CloudFormationのテンプレートとしてserverless.templateも成果物とする。
+Create the zip for deployment with the following commands.
+serverless.template is also included in the artifacts as the CloudFormation template.
 
 ```
 dotnet lambda package Template.Lambda.zip -pl Template.Lambda -c Release -farch arm64
 copy /y Template.Lambda\serverless.template Publish\
 ```
 
-## 📦 デプロイ
+## 📦 Deploy
 
-コマンドラインでのデプロイは以下のコマンドを成果物のあるディレクトリで実行する。
+To deploy from the command line, run the following command in the directory that contains the artifacts.
 
 ```
 dotnet lambda deploy-serverless --package Template.Lambda.zip
 ```
 
-## 🔷 アーキテクチャ
+## 🔷 Architecture
 
-本テンプレートのレイヤ構成について記述する。
+This section describes the layers of this template.
 
 ### 1️⃣ Base
 
 #### ServiceResolver
 
-Lambda関数で使用する各種コンポーネントを定義するDIコンテナを定義する。
+Defines the DI container that provides the components used by the Lambda functions.
 
 #### ApiFilter/EventFilter
 
-API及びCloudWatchイベントのLambda関数に対するフィルタ処理を定義する。
+Defines the filters for the Lambda functions of the API and the CloudWatch events.
 
 #### ApiMappingProfile
 
-AutoMapperによるマッピングを定義する。
+Defines the mappings with AutoMapper.
 
 ### 2️⃣ Functions
 
-Lambda関数を定義する。  
-Lambda関数はSource Generatorsによりボイラーテンプレート部分が自動生成されるため、serverless.templateでの定義は以下のように変更する。
+Defines the Lambda functions.  
+Because Source Generators generate the boilerplate of the Lambda functions, change the definitions in serverless.template as follows.
 
 * Before
 
@@ -95,27 +97,27 @@ Lambda関数はSource Generatorsによりボイラーテンプレート部分が
 
 ### 3️⃣ Parameters
 
-HTTP APIのLambda関数で使用するRequest/Responseの構造を定義する。  
-DataAnnotationsの属性を指定することで[FromBody]で取得する入力に対するバリデーションが実行される。
+Defines the Request/Response structures used by the Lambda functions of the HTTP API.  
+Specifying DataAnnotations attributes validates the input obtained with [FromBody].
 
 ### 4️⃣ Services
 
-アプリケーションサービス層を定義する。
+Defines the application service layer.
 
 ### 5️⃣ Models
 
-DynamoDB等のデータ構造を定義する。  
-Lambda関数のResponseとしてModels層のデータを直接返す事は良いが、Requestとしての直接使用は禁止する。  
-Requestについては必要な項目のみに制限してバリデーション用の属性を付加したプレゼンテーション用のモデルを作成し、Modelsのデータ構造とは相互にマッピングして使用する。  
-また、Responseについても返す項目を制限する必要がある場合には同様の形とする。
+Defines the data structures of DynamoDB and so on.  
+Returning the data of the Models layer directly as the Response of a Lambda function is fine, but using it directly as a Request is prohibited.  
+For a Request, create a presentation model limited to the necessary items with validation attributes, and map it to and from the data structures of Models.  
+Do the same for a Response when the returned items need to be limited.
 
 ### 6️⃣ Components
 
-ログ、データアクセスといった処理に対するプロバイダーやシリアライザー等の各種コンポーネントを定義する。
+Defines components such as providers and serializers for logging, data access, and so on.
 
-## 🚧 次に行う事
+## 🚧 Next steps
 
-* SNS/SQSのをイベントトリガーとする処理
-* RDS Proxyを使用したRDB操作
-* Cognito連携による認証処理
-* Kinesis連携によるストリーム分析
+* Processing triggered by SNS/SQS events
+* RDB operations with RDS Proxy
+* Authentication with Cognito
+* Stream analysis with Kinesis
