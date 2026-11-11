@@ -2,7 +2,7 @@
 
 [English](README.md) | 日本語
 
-AWS Lambda + API Gateway のテンプレート(.NET 10)。
+[Template](https://usausa.github.io/template/) project for AWS Lambda.
 
 # ✅ 実装
 
