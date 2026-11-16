@@ -208,7 +208,7 @@ public sealed class MockDynamoDBContext : IDynamoDBContext
 
     public IAsyncSearch<T> QueryAsync<T>(QueryConditional queryConditional, QueryConfig queryConfig) => throw new NotSupportedException();
 
-    public IAsyncSearch<T> FromQueryAsync<T>(QueryDocumentOperationRequest queryConfig, FromQueryConfig fromQueryConfig) => throw new NotSupportedException();
+    public IAsyncSearch<T> FromQueryAsync<T>(QueryDocumentOperationRequest queryOperationRequest, FromQueryConfig fromQueryConfig) => throw new NotSupportedException();
 
     // Vector
 
